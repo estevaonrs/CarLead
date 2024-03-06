@@ -262,10 +262,11 @@ def step_6(request):
     
 # Função de utilitário para formatar números como moeda
 def format_currency(value):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-    # Garante que o valor é um Decimal antes de formatar
-    value = Decimal(value)
-    return locale.currency(value, grouping=True, symbol='R$')
+    try:
+        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    except locale.Error:
+        locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')  # Tentativa alternativa
+    return locale.currency(value, grouping=True)
 
 def show_price(request, lead_id):
     lead = Lead.objects.get(id=lead_id)
