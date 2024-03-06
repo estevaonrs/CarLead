@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+
 
 from fipe_app.serializers import LeadSerializer
 from .models import FipeBrand, FipeModel, FipePrice, FipeYear, FipeFuel, Lead
