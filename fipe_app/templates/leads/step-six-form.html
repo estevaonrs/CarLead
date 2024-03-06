@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- This site was created in Webflow. https://www.webflow.com -->
+<!-- Last Published: Wed Mar 06 2024 16:07:51 GMT+0000 (Coordinated Universal Time) -->
+<html data-wf-domain="front-fazauto.webflow.io" data-wf-page="65e4963e8f07142b07fe55a0" data-wf-site="65d4d62524572e9697ec5fb3" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Avaliação</title>
+        <meta content="Form" property="og:title"/>
+        <meta content="Form" property="twitter:title"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="Webflow" name="generator"/>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com" rel="preconnect"/>
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+        <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+        <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
+    </head>
+    <body>
+        <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="cf-navigation-2-bar w-nav">
+            <div class="cf-navigation-2-wrapper">
+                <div class="cf-navigation-2-left-contain">
+                    <a href="#" class="cf-brand-2 w-nav-brand">
+                        <img src="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e4db53ac4e605ee41292d0_logoverde.png" loading="lazy" width="350" height="100" alt="" class="cf-navigation-logo"/>
+                    </a>
+                </div>
+             
+                <div class="cf-navigation-right-contain">
+                    <a href="https://webflow.com/templates/designers/conversionflow" target="_blank" class="cf-nav-2-button w-button">WHATSAPP</a>
+                </div>
+            </div>
+        </div>
+        <div class="cf-form-section-2">
+            <div class="cf-form-main-wrapper-2">
+                <div class="cf-form-left-wrapper-2">
+                    <h2 class="cf-form-heading-2">Finalize sua valiação</h2>
+                    <p class="cf-form-paragraph-2">Última etapa, preencha as informações e veja quanto vale o seu carro.</p>
+                    <div class="cf-footer-divider-2"></div>
+                </div>
+                <div class="cf-form-right-wrapper-2">
+                    <div class="cf-send-message-form-2 w-form">
+                        <form id="wf-form-Message-Form" name="wf-form-Message-Form" data-name="Message Form" method="post" data-wf-page-id="65e4963e8f07142b07fe55a0" data-wf-element-id="f9f2ac7a-a4c9-ebad-7f05-7b9eff18749c">
+                            {% csrf_token %}
+
+                            <input class="cf-borders-text-field-2 w-input" maxlength="256" name="name" data-name="Message Form - Name" placeholder="Nome" type="text" id="Message-Form-Name" required=""/>
+                            <input class="cf-borders-text-field-2 w-input" maxlength="256" name="email" data-name="Message/Email Address" placeholder="E-mail" type="email" id="Message-Form-Email-Address" required=""/>
+                            <input class="cf-borders-text-field-2 w-input" maxlength="256" name="phone" data-name="Message/Email Address" placeholder="Telefone" type="tel" id="Message-Form-Email-Address" required=""/>
+                            <div class="cf-form-dropdown-2"></div>
+                            <input type="submit" data-wait="Please wait..." class="cf-form-gradient-submit-2 w-button" value="VER QUANTO VALE MEU CARRO"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>
