@@ -94,6 +94,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cscnet',
+        'NAME': 'blogdjango',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'userdjango',
