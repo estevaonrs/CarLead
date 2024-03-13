@@ -104,6 +104,7 @@
                     {% csrf_token %}
                     <div class="cf-logos-2--wrapper">
                         {% for brand in brands %}
+                        {% if brand.show_in_template %}
                             <button type="submit" name="brand_id" value="{{ brand.id }}" class="cf-logo-button">
                                 {% if brand.image %}
                                     <img src="{{ brand.image.url }}" alt="{{ brand.brand }}" class="cf-logo-image"/>
@@ -112,7 +113,8 @@
                                 {% endif %}
                                 <span style="text-align: left;" class="brand-text">{{ brand.brand }}</span>
                             </button>
-                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                     </div>
                 </form>
             </div>

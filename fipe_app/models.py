@@ -21,7 +21,8 @@ class FipeVehicleType(models.Model):
 class FipeBrand(models.Model):
     brand = models.CharField(max_length=100)
     vehicle_type = models.ForeignKey(FipeVehicleType, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='brands_images/', null=True, blank=True)  # Caminho onde as imagens serão armazenadas
+    image = models.ImageField(upload_to='brands_images/', null=True, blank=True)
+    show_in_template = models.BooleanField(default=False)  # Novo campo booleano
 
     def __str__(self):
         return f"{self.brand} ({self.vehicle_type})"

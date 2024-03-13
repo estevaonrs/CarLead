@@ -198,27 +198,27 @@ td, th {
 }
 
 .w-icon-slider-right:before {
-  content: "î˜€";
+  content: "";
 }
 
 .w-icon-slider-left:before {
-  content: "î˜";
+  content: "";
 }
 
 .w-icon-nav-menu:before {
-  content: "î˜‚";
+  content: "";
 }
 
 .w-icon-arrow-down:before, .w-icon-dropdown-toggle:before {
-  content: "î˜ƒ";
+  content: "";
 }
 
 .w-icon-file-upload-remove:before {
-  content: "î¤€";
+  content: "";
 }
 
 .w-icon-file-upload-icon:before {
-  content: "î¤ƒ";
+  content: "";
 }
 
 * {
@@ -300,92 +300,6 @@ pre.w-code-block code {
   all: inherit;
 }
 
-.w-webflow-badge, .w-webflow-badge * {
-  z-index: auto;
-  visibility: visible;
-  box-sizing: border-box;
-  width: auto;
-  height: auto;
-  max-height: none;
-  max-width: none;
-  min-height: 0;
-  min-width: 0;
-  float: none;
-  clear: none;
-  box-shadow: none;
-  opacity: 1;
-  direction: ltr;
-  font-family: inherit;
-  font-weight: inherit;
-  color: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  font-style: inherit;
-  font-variant: inherit;
-  text-align: inherit;
-  letter-spacing: inherit;
-  -webkit-text-decoration: inherit;
-  text-decoration: inherit;
-  text-indent: 0;
-  text-transform: inherit;
-  text-shadow: none;
-  font-smoothing: auto;
-  vertical-align: baseline;
-  cursor: inherit;
-  white-space: inherit;
-  word-break: normal;
-  word-spacing: normal;
-  word-wrap: normal;
-  background: none;
-  border: 0 rgba(0, 0, 0, 0);
-  border-radius: 0;
-  margin: 0;
-  padding: 0;
-  list-style-type: disc;
-  transition: none;
-  display: block;
-  position: static;
-  top: auto;
-  bottom: auto;
-  left: auto;
-  right: auto;
-  overflow: visible;
-  transform: none;
-}
-
-.w-webflow-badge {
-  white-space: nowrap;
-  cursor: pointer;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .1);
-  visibility: visible !important;
-  z-index: 2147483647 !important;
-  color: #aaadb0 !important;
-  opacity: 1 !important;
-  width: auto !important;
-  height: auto !important;
-  background-color: #fff !important;
-  border-radius: 3px !important;
-  margin: 0 !important;
-  padding: 6px !important;
-  font-size: 12px !important;
-  line-height: 14px !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  position: fixed !important;
-  top: auto !important;
-  bottom: 12px !important;
-  left: auto !important;
-  right: 12px !important;
-  overflow: visible !important;
-  transform: none !important;
-}
-
-.w-webflow-badge > img {
-  visibility: visible !important;
-  opacity: 1 !important;
-  vertical-align: middle !important;
-  display: inline-block !important;
-}
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
@@ -6135,6 +6049,7 @@ textarea.w-input, textarea.w-select {
   width: 100%;
   color: #fff;
   background-color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(to right, #b16cea 20%, #ff5e69 60%, #ff8a56 80%, #ffa84b 90%);
   border-radius: 8px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -6934,7 +6849,7 @@ textarea.w-input, textarea.w-select {
   width: 450px;
   height: 70px;
   color: #000;
-  background-color: #000c2c;
+  background-color: #c4cddf;
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 56px;
   margin-bottom: 0;
@@ -7731,6 +7646,142 @@ textarea.w-input, textarea.w-select {
   margin-right: auto;
 }
 
+.brix---mg-top-80px {
+  margin-top: 80px;
+  margin-bottom: 74px;
+}
+
+.brix---opacity-20-2 {
+  opacity: .2;
+}
+
+.brix---floating-image-hero-v6---1 {
+  z-index: -1;
+  max-width: 600px;
+  position: absolute;
+  top: auto;
+  bottom: 41%;
+  left: auto;
+  right: -12%;
+  transform: rotate(140deg);
+}
+
+.brix---btn-secondary {
+  border: 1px solid var(--elements-webflow-library--neutral--300);
+  background-color: var(--elements-webflow-library--neutral--100);
+  color: var(--white);
+  text-align: center;
+  transform-style: preserve-3d;
+  background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
+  background-position: 0 0;
+  background-size: cover;
+  border-radius: 8px;
+  padding: 26px 38px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  transition: border-color .3s, transform .3s, background-color .3s, color .3s;
+  box-shadow: 0 4px 10px rgba(20, 20, 43, .04);
+}
+
+.brix---btn-secondary:hover {
+  border-color: var(--elements-webflow-library--accent--primary-1);
+  background-color: var(--elements-webflow-library--accent--primary-1);
+  color: var(--elements-webflow-library--neutral--100);
+  transform: translate3d(0, -3px, .01px);
+}
+
+.brix---btn-primary-2 {
+  background-color: var(--elements-webflow-library--accent--primary-1);
+  color: var(--elements-webflow-library--neutral--100);
+  text-align: center;
+  transform-style: preserve-3d;
+  background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
+  background-position: 0 0;
+  background-size: auto;
+  border-radius: 8px;
+  justify-content: center;
+  padding: 26px 38px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color .3s, transform .3s, color .3s;
+}
+
+.brix---btn-primary-2:hover {
+  background-color: var(--elements-webflow-library--secondary--color-1);
+  color: var(--elements-webflow-library--neutral--100);
+  transform: translate3d(0, -3px, .01px);
+}
+
+.brix---button-row-left {
+  margin-right: 24px;
+}
+
+.brix---buttons-row-center {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.brix---paragraph-default-2 {
+  margin-bottom: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.brix---color-neutral-801 {
+  color: var(--elements-webflow-library--neutral--600);
+}
+
+.brix---mg-bottom-40px {
+  margin-bottom: 40px;
+}
+
+.brix---heading-h1-size-2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: 45px;
+  font-weight: 700;
+  line-height: 66px;
+}
+
+.brix---color-neutral-802 {
+  color: var(--elements-webflow-library--neutral--800);
+}
+
+.brix---text-center {
+  width: 900px;
+  text-align: center;
+}
+
+.brix---inner-container-574px---center {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.brix---container-default-2 {
+  max-width: 1218px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.brix---section-hero-top-small {
+  padding-top: 60px;
+  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.heading-2 {
+  font-size: 52px;
+}
+
 @media screen and (min-width: 1280px) {
   .cf-navigation-logo {
     height: 100px;
@@ -8350,7 +8401,15 @@ textarea.w-input, textarea.w-select {
     background-color: red;
   }
 
-  .cf-copyright-text-2, .cf-footer-links-header {
+  .cf-copyright-text-2 {
+    color: #f4edea;
+  }
+
+  .cf-footer-copyright-wrapper {
+    padding-top: 0;
+  }
+
+  .cf-footer-links-header {
     color: #f4edea;
   }
 
@@ -8358,15 +8417,23 @@ textarea.w-input, textarea.w-select {
     background-color: #f4edea;
   }
 
+  .cf-footer-container {
+    margin-bottom: 0;
+  }
+
   .cf-footer-wrapper {
-    margin-top: -54px;
-    bottom: -77px;
+    margin-top: 0;
+    bottom: auto;
+  }
+
+  .cf-wrapper-1200px-2 {
+    top: 170px;
   }
 
   .cf-footer-section {
-    height: 500px;
-    margin-top: -120px;
-    margin-bottom: 93px;
+    height: 350px;
+    margin-top: 0;
+    margin-bottom: 0;
     padding-top: 0;
   }
 
@@ -8509,7 +8576,7 @@ textarea.w-input, textarea.w-select {
   }
 
   .cf-newsletter-text-field {
-    background-color: #000c2c;
+    background-color: #dfe1e6;
     background-image: none;
   }
 
@@ -8536,6 +8603,11 @@ textarea.w-input, textarea.w-select {
     font-family: Axia, sans-serif;
   }
 
+  .uui-heroheader08_form, .uui-max-width-small, .uui-space-small-2 {
+    position: relative;
+    left: -101px;
+  }
+
   .uui-heading-xlarge-2 {
     width: 1200px;
     position: relative;
@@ -8544,7 +8616,14 @@ textarea.w-input, textarea.w-select {
 
   .uui-heroheader08_content {
     width: 900px;
-    padding-left: 171px;
+    padding-left: 0;
+    position: relative;
+    left: 500px;
+  }
+
+  .uui-heroheader08_component {
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
   }
 
   .uui-padding-vertical-xhuge-2 {
@@ -8554,6 +8633,11 @@ textarea.w-input, textarea.w-select {
 
   .uui-heroheader14_image-wrapper {
     height: 40rem;
+  }
+
+  .uui-heading-xlarge-3 {
+    position: relative;
+    left: -107px;
   }
 
   .uui-container-large-3 {
@@ -9472,6 +9556,26 @@ textarea.w-input, textarea.w-select {
     position: relative;
     top: -565px;
     left: 14px;
+  }
+
+  .brix---floating-image-hero-v6---1 {
+    top: 24%;
+    right: -30%;
+  }
+
+  .brix---btn-primary-2 {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .brix---heading-h1-size-2 {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  .brix---section-hero-top-small {
+    padding-top: 100px;
+    padding-bottom: 100px;
   }
 }
 
@@ -10499,6 +10603,42 @@ textarea.w-input, textarea.w-select {
     position: relative;
     top: -420px;
     left: 17px;
+  }
+
+  .brix---mg-top-80px {
+    margin-top: 64px;
+  }
+
+  .brix---floating-image-hero-v6---1 {
+    max-width: 480px;
+  }
+
+  .brix---btn-secondary {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .brix---btn-primary-2 {
+    padding: 20px 32px;
+  }
+
+  .brix---button-row-left {
+    margin-right: 16px;
+  }
+
+  .brix---mg-bottom-40px {
+    margin-bottom: 24px;
+  }
+
+  .brix---heading-h1-size-2 {
+    margin-bottom: 12px;
+    font-size: 38px;
+    line-height: 46px;
+  }
+
+  .brix---section-hero-top-small {
+    padding-top: 100px;
+    padding-bottom: 100px;
   }
 }
 
@@ -11625,7 +11765,7 @@ textarea.w-input, textarea.w-select {
   }
 
   .cf-submit-button {
-    background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
+    background-image: linear-gradient(150deg, #b16cea 20%, #ff5e69 60%, #ff8a56 80%, #ffa84b);
     background-position: 0 0;
     background-repeat: repeat;
     background-size: auto;
@@ -11780,20 +11920,69 @@ textarea.w-input, textarea.w-select {
   .button-4 {
     visibility: hidden;
   }
+
+  .brix---mg-top-80px {
+    margin-top: 56px;
+    margin-bottom: 0;
+  }
+
+  .brix---floating-image-hero-v6---1 {
+    display: none;
+  }
+
+  .brix---btn-secondary, .brix---btn-primary-2 {
+    width: 100%;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    font-size: 17px;
+    line-height: 19px;
+  }
+
+  .brix---button-row-left {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+
+  .brix---buttons-row-center {
+    flex-direction: column;
+  }
+
+  .brix---paragraph-default-2 {
+    font-size: 17px;
+    line-height: 28px;
+  }
+
+  .brix---heading-h1-size-2 {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 30px;
+    line-height: 37px;
+  }
+
+  .brix---text-center {
+    width: 100%;
+  }
+
+  .brix---inner-container-574px---center {
+    width: 100%;
+    max-width: none;
+  }
+
+  .brix---container-default-2 {
+    max-width: 400px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .brix---section-hero-top-small {
+    padding-top: 48px;
+    padding-bottom: 96px;
+  }
 }
 
-#w-node-_47630c8a-4f9a-e00a-e24e-8baf21a43179-97ec5fbf, #w-node-_412d7ae7-c27a-ce7c-b1b5-409b5aa18dc8-97ec5fbf {
+#w-node-_47630c8a-4f9a-e00a-e24e-8baf21a43179-97ec5fbf, #w-node-_412d7ae7-c27a-ce7c-b1b5-409b5aa18dc8-97ec5fbf, #w-node-_9421d402-535e-121e-ef12-a897c4e0d448-07fe55a0 {
   grid-area: span 1 / span 1 / span 1 / span 1;
-}
-
-@media screen and (min-width: 1280px) {
-  #w-node-_3f0fe8cc-d605-b59e-0def-dacaaac5ad85-07fe55a0 {
-    grid-area: Area;
-  }
-
-  #w-node-ba4df9c4-12fe-2f64-ddde-a9ba91cb7abc-07fe55a0 {
-    grid-area: span 1 / span 1 / span 1 / span 1;
-  }
 }
 
 @font-face {

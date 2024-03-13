@@ -19,7 +19,7 @@ import re
 @require_http_methods(["GET", "POST"])
 def step_1(request):
     search_query = request.GET.get('search', '')
-    brands = FipeBrand.objects.all()
+    brands = FipeBrand.objects.filter(show_in_template=True)  # Filtrar apenas marcas que devem ser mostradas no template
 
     if search_query:
         brands = brands.filter(Q(brand__icontains=search_query))
@@ -27,11 +27,11 @@ def step_1(request):
     if request.method == "POST":
         brand_id = request.POST.get('brand_id')
         # Verifica se o brand_id existe no banco de dados
-        if FipeBrand.objects.filter(id=brand_id).exists():
+        if FipeBrand.objects.filter(id=brand_id, show_in_template=True).exists():  # Verificar se o brand_id está marcado para ser mostrado no template
             request.session['brand_id'] = brand_id
             return redirect('fipe_app:step_1_1', brand_id=brand_id)
         else:
-            return HttpResponse("Marca selecionada não existe.", status=404)
+            return HttpResponse("Marca selecionada não existe ou não deve ser mostrada.", status=404)
     else:
         return render(request, 'leads/step-one-form.html', {'brands': brands, 'search_query': search_query})
 
