@@ -23,7 +23,7 @@
             }
         
             .cf-logo-button {
-                width: 80%;
+                width: 100%;
                 height: 70px;
                 display: flex;
                 align-items: center;
@@ -44,7 +44,6 @@
             }
 
             .brand-text {
-                padding-left: 25px;
                 font-size: 18px;
                 transition: font-size 0.3s ease, color 0.3s ease;
             }
@@ -65,9 +64,6 @@
             padding-bottom: 200px;
             }
 
-
-           
-
         </style>
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
@@ -87,34 +83,33 @@
         </div>
         <div class="cf-logo-section-2">
             <div class="cf-logo-2---wrapper">
-                <h3 class="cf-logo-2-heading">SELECIONE SUA MARCA</h3>
+
+                <h3 class="cf-logo-2-heading">Marca Selecionada: {{ brand.brand }}</h3>
+
+                <h3 class="cf-logo-2-heading">SELECIONE A VERSÃO</h3>
                 <div class="container">
                     <div class="search-container" style="display: flex; align-items: center;">
-                        <form method="get" action="{% url 'fipe_app:step_1' %}" style="display: flex;">
-                            <input type="text" name="search" placeholder="Pesquisar marca" style="height: 40px; border-radius: 5px 0 0 5px; padding: 5px 10px;"/>
+                        <form method="get" action="{% url 'fipe_app:step_1_1' brand_id=brand.id %}" style="display: flex;">
+                            <input type="text" name="search" placeholder="Pesquisar versão" style="height: 40px; border-radius: 5px 0 0 5px; padding: 5px 10px;"/>
                             <button type="submit" style="padding: 5px; background: #000c2c; border: none; border-radius: 0 5px 5px 0; display: flex; align-items: center;">
                                 <i style="color: white;" class="fa fa-search"></i>
                             </button>
                         </form>
                     </div>
                 </div>
-                <br><br>
-
+                <br>
                 <form method="post">
                     {% csrf_token %}
-                    <div class="cf-logos-2--wrapper">
-                        {% for brand in brands %}
-                            <button type="submit" name="brand_id" value="{{ brand.id }}" class="cf-logo-button">
-                                {% if brand.image %}
-                                    <img src="{{ brand.image.url }}" alt="{{ brand.brand }}" class="cf-logo-image"/>
-                                {% else %}
-                                    <img src="{% static 'images/65d62e504a2620490fd23955_Chevrolet.webp' %}" alt="Imagem padrão" class="cf-logo-image"/>
-                                {% endif %}
-                                <span style="text-align: left;" class="brand-text">{{ brand.brand }}</span>
-                            </button>
-                        {% endfor %}
-                    </div>
-                </form>
+                <div class="cf-logos-2--wrapper">
+                    {% for version in versions %}
+                        <button type="submit" name="version_id" value="{{ version.id }}" class="cf-logo-button">
+                            <!-- Considerando que cada versão pode ou não ter uma imagem associada -->
+                        
+                            <span class="brand-text">{{ version.name }}</span>
+                        </button>
+                    {% endfor %}
+                </div>
+            </form>
             </div>
         </div>
         <footer class="cf-footer-section">

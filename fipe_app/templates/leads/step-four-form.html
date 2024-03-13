@@ -1,8 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<!-- This site was created in Webflow. https://www.webflow.com -->
-<!-- Last Published: Wed Mar 06 2024 15:38:20 GMT+0000 (Coordinated Universal Time) -->
+
 <html data-wf-domain="front-fazauto.webflow.io" data-wf-page="65e4963e8f07142b07fe55a0" data-wf-site="65d4d62524572e9697ec5fb3" lang="en">
     <head>
         <meta charset="utf-8"/>
@@ -11,12 +10,23 @@
         <meta content="Form" property="twitter:title"/>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta content="Webflow" name="generator"/>
-        <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/css/front-fazauto.webflow.e08ed4f90.css" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"/>        
         <link href="https://fonts.googleapis.com" rel="preconnect"/>
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
+<style>
+    .cf-forms-section-2 {
+    margin-top: 150px; /* Puxa o elemento para cima */
+    padding-bottom: 10px;
+
+}
+
+.cf-newsletter-wrapper {
+    margin-top: 0; /* Ajustar se houver margem aplicada */
+}
+</style>
     </head>
     <body>
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="cf-navigation-2-bar w-nav">
@@ -37,7 +47,7 @@
                 <div class="cf-newsletter-form-block w-form">
                     <form method="post" class="cf-form">
                         {% csrf_token %}
-                        <input class="cf-newsletter-text-field w-input" placeholder="Quilometragem" type="number" id="mileage" name="mileage" required />
+                        <input class="cf-newsletter-text-field w-input" style="background-color: #000c2c; color: #fff;" placeholder="Digite a quilometragem" type="number" id="mileage" name="mileage" required />
                         <button type="submit"class="cf-submit-button w-button">Avançar</button>      
 
                     </form>
@@ -45,6 +55,59 @@
                 </div>
             </div>
         </div>
+        <footer class="cf-footer-section">
+            <div class="cf-wrapper-1200px-2">
+                <div class="cf-footer-wrapper">
+                    <div class="cf-footer-container">
+                        <div class="cf-footer-left-container">
+                            <a href="#" class="cf-footer-logo-link w-inline-block">
+                                <img src="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e4db53ac4e605ee41292d0_logoverde.png" loading="lazy" alt="" class="cf-footer-logo"/>
+                            </a>
+                            <div class="cf-footer-social-wrapper">
+                                <a href="https://www.facebook.com/" target="_blank" class="cf-footer-social-link-block w-inline-block">
+                                    <img src="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65da38d09aa219adfe26e2ea_facebook%202.svg" loading="lazy" alt="" class="cf-footer-social-icon"/>
+                                </a>
+                                <a href="https://www.instagram.com/" target="_blank" class="cf-footer-social-link-block w-inline-block">
+                                    <img src="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65da38d09aa219adfe26e2ee_Component%201%20(2).svg" loading="lazy" alt="" class="cf-footer-social-icon"/>
+                                </a>
+                                <a href="https://dribbble.com/" target="_blank" class="cf-footer-social-link-block w-inline-block">
+                                    <img src="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65de393ed9003274f38b20d4_whatsapp%20(1).png" loading="lazy" alt="" class="cf-footer-social-icon"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="cf-footer-right-container">
+                            <div class="cf-footer-links-wrapper">
+                                <div class="cf-footer-link-inner-wrapper bottom-padding">
+                                    <div class="cf-footer-links-header">Política de privacidade</div>
+                                </div>
+                            </div>
+                            <div class="cf-footer-links-wrapper">
+                                <div class="cf-footer-link-inner-wrapper">
+                                    <div class="cf-footer-links-header">Termos de serviço</div>
+                                </div>
+                            </div>
+                            <div id="w-node-_412d7ae7-c27a-ce7c-b1b5-409b5aa18dc8-97ec5fbf" class="cf-footer-links-wrapper">
+                                <div class="cf-footer-link-inner-wrapper">
+                                    <div class="cf-footer-links-header">Quem somos</div>
+                                </div>
+                            </div>
+                            <div class="cf-footer-links-wrapper">
+                                <div class="cf-footer-link-inner-wrapper">
+                                    <div class="cf-footer-links-header">Entre em contato</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cf-footer-copyright-wrapper">
+                        <div class="cf-copyright-text-2">
+                            © Todos os Direitos Reservados pela <a href="http://conversionflow.co/" target="_blank" class="cf-footer-link">Compramosseucarro.net</a>
+                            . Desenvolvido por <a href="https://webflow.com/" target="_blank" class="cf-footer-link">estevaoferreiradev</a>
+                            .
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
         
     </body>
 </html>

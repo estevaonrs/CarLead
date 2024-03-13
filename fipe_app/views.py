@@ -2,10 +2,11 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 import locale
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+from django.db.models import Q
 
 
 from fipe_app.serializers import LeadSerializer
-from .models import FipeBrand, FipeModel, FipePrice, FipeYear, FipeFuel, Lead
+from .models import FipeBrand, FipeModel, FipePrice, FipeYear, FipeFuel, Lead, FipeVersion
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from django.utils import timezone
@@ -17,31 +18,61 @@ import re
 # Etapa 1
 @require_http_methods(["GET", "POST"])
 def step_1(request):
+    search_query = request.GET.get('search', '')
+    brands = FipeBrand.objects.all()
+
+    if search_query:
+        brands = brands.filter(Q(brand__icontains=search_query))
+
     if request.method == "POST":
         brand_id = request.POST.get('brand_id')
         # Verifica se o brand_id existe no banco de dados
         if FipeBrand.objects.filter(id=brand_id).exists():
             request.session['brand_id'] = brand_id
-            return redirect('fipe_app:step_2', brand_id=brand_id)
+            return redirect('fipe_app:step_1_1', brand_id=brand_id)
         else:
             return HttpResponse("Marca selecionada não existe.", status=404)
     else:
-        brands = FipeBrand.objects.all()
-        return render(request, 'leads/step-one-form.html', {'brands': brands})
+        return render(request, 'leads/step-one-form.html', {'brands': brands, 'search_query': search_query})
 
 # Etapa 2
-def step_2(request, brand_id):
+@require_http_methods(["GET", "POST"])
+def step_1_1(request, brand_id):
+    search_query = request.GET.get('search', '')
+    brand = get_object_or_404(FipeBrand, pk=brand_id)
+    versions = FipeVersion.objects.filter(brand=brand)
+
+    if search_query:
+        versions = versions.filter(Q(name__icontains=search_query))
+
+    if request.method == "POST":
+        version_id = request.POST.get('version_id')
+        if FipeVersion.objects.filter(id=version_id, brand=brand).exists():
+            request.session['version_id'] = version_id
+            return redirect('fipe_app:step_2', version_id=version_id)
+        else:
+            return HttpResponse("Versão selecionada não existe.", status=404)
+    else:
+        return render(request, 'leads/step-one-one-form.html', {'versions': versions, 'brand': brand, 'search_query': search_query})
+
+# Ajustar step_2 para aceitar version_id ao invés de brand_id
+def step_2(request, version_id):
+    search_query = request.GET.get('search', '')
+    version = get_object_or_404(FipeVersion, pk=version_id)
+    models = FipeModel.objects.filter(version=version)
+
+    if search_query:
+        models = models.filter(Q(model__icontains=search_query))
+
     if request.method == "POST":
         model_id = request.POST.get('model_id')
-        # Verifica se o model_id existe para a marca selecionada
-        if FipeModel.objects.filter(id=model_id, brand_id=brand_id).exists():
+        if models.filter(id=model_id).exists():
             request.session['model_id'] = model_id
             return redirect('fipe_app:step_3', model_id=model_id)
         else:
             return HttpResponse("Modelo selecionado não existe.", status=404)
     else:
-        models = FipeModel.objects.filter(brand_id=brand_id)
-        return render(request, 'leads/step-two-form.html', {'models': models, 'brand_id': brand_id})
+        return render(request, 'leads/step-two-form.html', {'models': models, 'version': version, 'search_query': search_query})
 
 # Etapa 3
 def step_3(request, model_id):
@@ -291,4 +322,8 @@ class LeadViewSet(viewsets.ModelViewSet):
 
 def index_view(request):
     return render(request, 'leads/index.html')
+
+
+
+
 

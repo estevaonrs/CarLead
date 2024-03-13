@@ -198,27 +198,27 @@ td, th {
 }
 
 .w-icon-slider-right:before {
-  content: "";
+  content: "î˜€";
 }
 
 .w-icon-slider-left:before {
-  content: "";
+  content: "î˜";
 }
 
 .w-icon-nav-menu:before {
-  content: "";
+  content: "î˜‚";
 }
 
 .w-icon-arrow-down:before, .w-icon-dropdown-toggle:before {
-  content: "";
+  content: "î˜ƒ";
 }
 
 .w-icon-file-upload-remove:before {
-  content: "";
+  content: "î¤€";
 }
 
 .w-icon-file-upload-icon:before {
-  content: "";
+  content: "î¤ƒ";
 }
 
 * {
@@ -300,7 +300,93 @@ pre.w-code-block code {
   all: inherit;
 }
 
-.=
+.w-webflow-badge, .w-webflow-badge * {
+  z-index: auto;
+  visibility: visible;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  max-height: none;
+  max-width: none;
+  min-height: 0;
+  min-width: 0;
+  float: none;
+  clear: none;
+  box-shadow: none;
+  opacity: 1;
+  direction: ltr;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  text-align: inherit;
+  letter-spacing: inherit;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  text-indent: 0;
+  text-transform: inherit;
+  text-shadow: none;
+  font-smoothing: auto;
+  vertical-align: baseline;
+  cursor: inherit;
+  white-space: inherit;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  background: none;
+  border: 0 rgba(0, 0, 0, 0);
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  list-style-type: disc;
+  transition: none;
+  display: block;
+  position: static;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  overflow: visible;
+  transform: none;
+}
+
+.w-webflow-badge {
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .1);
+  visibility: visible !important;
+  z-index: 2147483647 !important;
+  color: #aaadb0 !important;
+  opacity: 1 !important;
+  width: auto !important;
+  height: auto !important;
+  background-color: #fff !important;
+  border-radius: 3px !important;
+  margin: 0 !important;
+  padding: 6px !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  position: fixed !important;
+  top: auto !important;
+  bottom: 12px !important;
+  left: auto !important;
+  right: 12px !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+.w-webflow-badge > img {
+  visibility: visible !important;
+  opacity: 1 !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
   font-weight: bold;
@@ -4583,7 +4669,67 @@ textarea.w-input, textarea.w-select {
   color: var(--untitled-ui--primary900);
 }
 
+.uui-badge-group_icon {
+  width: 1rem;
+  height: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-left: .25rem;
+  display: flex;
+}
 
+.uui-badge-group_icon.text-color-primary500 {
+  color: var(--untitled-ui--primary500);
+  margin-right: -.25rem;
+}
+
+.badge-group_text-wrapper {
+  align-items: center;
+  padding-left: .75rem;
+  padding-right: .75rem;
+  display: flex;
+}
+
+.uui-badge-group_badge {
+  background-color: var(--untitled-ui--white);
+  color: var(--untitled-ui--gray700);
+  white-space: nowrap;
+  border-radius: 1rem;
+  align-items: center;
+  padding: .125rem .625rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+}
+
+.uui-badge-group_badge.is-primary {
+  background-color: var(--untitled-ui--white);
+  color: var(--untitled-ui--primary700);
+}
+
+.uui-badge-group {
+  background-color: var(--untitled-ui--gray100);
+  color: var(--untitled-ui--gray700);
+  white-space: nowrap;
+  mix-blend-mode: multiply;
+  border-radius: 10rem;
+  align-items: center;
+  padding: .25rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+}
+
+.uui-badge-group.is-primary {
+  background-color: var(--untitled-ui--primary50-2);
+  color: var(--untitled-ui--primary700);
+  white-space: nowrap;
+  text-decoration: none;
+}
 
 .uui-max-width-xlarge {
   width: 100%;
@@ -5989,7 +6135,6 @@ textarea.w-input, textarea.w-select {
   width: 100%;
   color: #fff;
   background-color: rgba(0, 0, 0, 0);
-  background-image: linear-gradient(to right, #b16cea 20%, #ff5e69 60%, #ff8a56 80%, #ffa84b 90%);
   border-radius: 8px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -6789,7 +6934,7 @@ textarea.w-input, textarea.w-select {
   width: 450px;
   height: 70px;
   color: #000;
-  background-color: #c4cddf;
+  background-color: #000c2c;
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 56px;
   margin-bottom: 0;
@@ -7468,10 +7613,67 @@ textarea.w-input, textarea.w-select {
   margin-right: auto;
 }
 
+.uui-badge-group_icon-2 {
+  width: 1rem;
+  height: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-left: .25rem;
+  display: flex;
+}
 
+.uui-badge-group_icon-2.text-color-primary500 {
+  color: var(--untitled-ui--primary500);
+  margin-right: -.25rem;
+}
 
+.badge-group_text-wrapper-2 {
+  align-items: center;
+  padding-left: .75rem;
+  padding-right: .75rem;
+  display: flex;
+}
 
+.uui-badge-group_badge-2 {
+  background-color: var(--untitled-ui--white);
+  color: var(--untitled-ui--gray700);
+  white-space: nowrap;
+  border-radius: 1rem;
+  align-items: center;
+  padding: .125rem .625rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+}
 
+.uui-badge-group_badge-2.is-primary {
+  background-color: var(--untitled-ui--white);
+  color: var(--untitled-ui--primary700);
+}
+
+.uui-badge-group-2 {
+  background-color: var(--untitled-ui--gray100);
+  color: var(--untitled-ui--gray700);
+  white-space: nowrap;
+  mix-blend-mode: multiply;
+  border-radius: 10rem;
+  align-items: center;
+  padding: .25rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Oxygen, Fira Sans, Droid Sans, sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+}
+
+.uui-badge-group-2.is-primary {
+  background-color: var(--untitled-ui--primary50-2);
+  color: var(--untitled-ui--primary700);
+  white-space: nowrap;
+  text-decoration: none;
+}
 
 .uui-max-width-xlarge-2 {
   width: 100%;
@@ -7544,6 +7746,10 @@ textarea.w-input, textarea.w-select {
     width: 100%;
   }
 
+  .cf-choose-section {
+    padding-top: 108px;
+  }
+
   .cf-cta-top-image {
     left: -24%;
   }
@@ -7592,14 +7798,20 @@ textarea.w-input, textarea.w-select {
   }
 
   .cf-hero-section-2 {
-    height: 810px;
+    height: 710px;
     margin-bottom: 0;
     padding-top: 0;
     top: 0;
   }
 
   .cf-hero-section-6 {
+    margin-top: -83px;
     padding-bottom: 0;
+  }
+
+  .cf-achievements-section {
+    margin-top: -56px;
+    padding-top: 42px;
   }
 
   .cf-testimonial-logos-2 {
@@ -7682,6 +7894,22 @@ textarea.w-input, textarea.w-select {
   .uui-heading-xlarge-3 {
     width: 800px;
   }
+
+  .button-3 {
+    visibility: hidden;
+  }
+
+  .button-4 {
+    background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
+    background-position: 0 0;
+    background-size: auto;
+    border-radius: 8px;
+    padding: 16px 150px;
+    font-size: 30px;
+    position: relative;
+    top: -500px;
+    left: -59px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -7709,6 +7937,10 @@ textarea.w-input, textarea.w-select {
 
   .cf-wrapper-1160.choose-flex {
     margin-top: -174px;
+  }
+
+  .cf-choose-section {
+    padding-top: 137px;
   }
 
   .cf-slide-nav {
@@ -7823,6 +8055,12 @@ textarea.w-input, textarea.w-select {
     height: 500px;
     background-position: 50%;
     background-size: cover;
+    margin-top: -62px;
+  }
+
+  .cf-achievements-section {
+    margin-top: -53px;
+    padding-top: 65px;
   }
 
   .image-5 {
@@ -7917,6 +8155,18 @@ textarea.w-input, textarea.w-select {
   .uui-heroheader14_image-wrapper {
     height: 40rem;
   }
+
+  .button-4 {
+    background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
+    background-position: 0 0;
+    background-size: 540px;
+    border-radius: 11px;
+    padding: 16px 150px;
+    font-size: 30px;
+    position: relative;
+    top: -450px;
+    left: -38px;
+  }
 }
 
 @media screen and (min-width: 1920px) {
@@ -7972,6 +8222,10 @@ textarea.w-input, textarea.w-select {
     margin-bottom: 30px;
     padding-top: 148px;
     padding-bottom: 0;
+  }
+
+  .cf-logo-22px-heading {
+    font-size: 36px;
   }
 
   .cf-logos-wrapper {
@@ -8042,6 +8296,7 @@ textarea.w-input, textarea.w-select {
 
   .cf-choose-section {
     background-color: #f4edea;
+    padding-top: 95px;
   }
 
   .cf-cta-top-image {
@@ -8142,18 +8397,29 @@ textarea.w-input, textarea.w-select {
   }
 
   .cf-hero-section-2 {
-    height: 1100px;
+    height: 1000px;
     background-image: none;
     margin-bottom: 0;
     padding-top: 0;
     top: 0;
   }
 
+  .cf-logo-section-1 {
+    padding-top: 167px;
+  }
+
   .cf-hero-section-6 {
     height: 1080px;
     background-size: cover;
+    margin-top: -107px;
     margin-bottom: 0;
+    padding-top: 53px;
     padding-bottom: 0;
+  }
+
+  .cf-achievements-section {
+    margin-top: -83px;
+    padding-top: 48px;
   }
 
   .image-5 {
@@ -8163,6 +8429,10 @@ textarea.w-input, textarea.w-select {
 
   .cf-form-main-wrapper {
     margin-top: 48px;
+  }
+
+  .cf-image-review-container-2 {
+    padding-bottom: 0;
   }
 
   .desktop-image {
@@ -8239,7 +8509,7 @@ textarea.w-input, textarea.w-select {
   }
 
   .cf-newsletter-text-field {
-    background-color: #dfe1e6;
+    background-color: #000c2c;
     background-image: none;
   }
 
@@ -8288,6 +8558,17 @@ textarea.w-input, textarea.w-select {
 
   .uui-container-large-3 {
     max-width: none;
+  }
+
+  .button-4 {
+    background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
+    background-position: 0 0;
+    background-size: auto;
+    border-radius: 11px;
+    padding: 30px 200px;
+    font-size: 40px;
+    position: relative;
+    top: -620px;
   }
 }
 
@@ -8804,7 +9085,7 @@ textarea.w-input, textarea.w-select {
   }
 
   .cf-hero-section-2 {
-    height: 1050px;
+    height: 1000px;
     margin-bottom: 0;
     padding-top: 0;
     top: 0;
@@ -8892,6 +9173,7 @@ textarea.w-input, textarea.w-select {
   .cf-hero-section-6 {
     background-position: 0 0;
     background-size: cover;
+    margin-top: -38px;
   }
 
   .cf-achievement-card-icon {
@@ -9033,7 +9315,7 @@ textarea.w-input, textarea.w-select {
 
   .mobile-image {
     position: relative;
-    top: -167px;
+    top: -200px;
   }
 
   .brix---floating-image-hero-v7 {
@@ -9182,6 +9464,14 @@ textarea.w-input, textarea.w-select {
 
   .uui-heading-xlarge-3 {
     font-size: 3.25rem;
+  }
+
+  .button-3 {
+    padding-left: 25px;
+    padding-right: 25px;
+    position: relative;
+    top: -565px;
+    left: 14px;
   }
 }
 
@@ -9619,8 +9909,14 @@ textarea.w-input, textarea.w-select {
     font-size: 2.25rem;
   }
 
+  .uui-badge-group_badge {
+    padding: .125rem .5rem;
+    font-size: .75rem;
+  }
 
- 
+  .uui-badge-group {
+    font-size: .75rem;
+  }
 
   .uui-padding-vertical-xhuge {
     padding-top: 4rem;
@@ -10166,7 +10462,10 @@ textarea.w-input, textarea.w-select {
     font-size: .75rem;
   }
 
- 
+  .uui-badge-group-2 {
+    font-size: .75rem;
+  }
+
   .uui-text-align-center-2 {
     top: -62px;
   }
@@ -10190,6 +10489,16 @@ textarea.w-input, textarea.w-select {
 
   .uui-heading-xlarge-3 {
     font-size: 2.25rem;
+  }
+
+  .button-3 {
+    background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
+    background-position: 0 0;
+    background-size: auto;
+    border-radius: 6px;
+    position: relative;
+    top: -420px;
+    left: 17px;
   }
 }
 
@@ -10422,6 +10731,10 @@ textarea.w-input, textarea.w-select {
 
   .cf-wrapper-1160 {
     width: 90%;
+  }
+
+  .cf-choose-section {
+    padding-top: 194px;
   }
 
   .cf-slide-nav {
@@ -10837,6 +11150,7 @@ textarea.w-input, textarea.w-select {
     grid-column-gap: 16px;
     grid-row-gap: 16px;
     aspect-ratio: auto;
+    box-shadow: none;
     object-fit: cover;
     flex-flow: wrap;
     grid-template-rows: auto auto;
@@ -10844,7 +11158,7 @@ textarea.w-input, textarea.w-select {
     grid-auto-columns: 1fr;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 99px;
+    margin-top: 8px;
     margin-bottom: 0;
     padding-top: 0;
     display: block;
@@ -10892,6 +11206,10 @@ textarea.w-input, textarea.w-select {
   .cf-logo-wrapper {
     padding-top: 60px;
     padding-bottom: 40px;
+  }
+
+  .cf-logo-section-1 {
+    background-color: #fff;
   }
 
   .cf-testimonial-position {
@@ -10971,6 +11289,7 @@ textarea.w-input, textarea.w-select {
     background-size: cover;
     margin-top: -17px;
     padding-bottom: 100px;
+    top: -32px;
   }
 
   .cf-achievement-card-item-subtext {
@@ -10999,6 +11318,11 @@ textarea.w-input, textarea.w-select {
 
   .cf-wrapper.achievement-wrapper {
     padding-top: 100px;
+  }
+
+  .cf-achievements-section {
+    height: 800px;
+    margin-top: -56px;
   }
 
   .div-block-11 {
@@ -11136,6 +11460,10 @@ textarea.w-input, textarea.w-select {
     flex: 0 auto;
   }
 
+  .cf-image-review-container-2 {
+    top: 0;
+  }
+
   .cf-testimonial-logo-image-2 {
     margin-top: 10px;
     margin-bottom: 0;
@@ -11213,8 +11541,8 @@ textarea.w-input, textarea.w-select {
   .brix---btn-primary {
     width: 140px;
     height: 40px;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 14px;
+    padding-bottom: 18px;
     font-size: 12px;
     line-height: 19px;
   }
@@ -11297,7 +11625,7 @@ textarea.w-input, textarea.w-select {
   }
 
   .cf-submit-button {
-    background-image: linear-gradient(150deg, #b16cea 20%, #ff5e69 60%, #ff8a56 80%, #ffa84b);
+    background-image: url("https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e12019005c55ebd0766a75_Logo%20reduzida%2004.png");
     background-position: 0 0;
     background-repeat: repeat;
     background-size: auto;
@@ -11433,10 +11761,25 @@ textarea.w-input, textarea.w-select {
     position: relative;
     top: -83px;
   }
-}
 
-#w-node-f2637c3c-8e95-d74c-f086-1ed9ee4e1b95-97ec5fbf {
-  grid-area: span 1 / span 2 / span 1 / span 2;
+  .button-3 {
+    opacity: 1;
+    outline-offset: 0px;
+    pointer-events: auto;
+    background-color: #ff4d00;
+    background-image: none;
+    border-radius: 6px;
+    outline: 6px #000c2c;
+    padding-left: 6px;
+    padding-right: 6px;
+    position: relative;
+    top: -339px;
+    left: 14px;
+  }
+
+  .button-4 {
+    visibility: hidden;
+  }
 }
 
 #w-node-_47630c8a-4f9a-e00a-e24e-8baf21a43179-97ec5fbf, #w-node-_412d7ae7-c27a-ce7c-b1b5-409b5aa18dc8-97ec5fbf {
@@ -11450,12 +11793,6 @@ textarea.w-input, textarea.w-select {
 
   #w-node-ba4df9c4-12fe-2f64-ddde-a9ba91cb7abc-07fe55a0 {
     grid-area: span 1 / span 1 / span 1 / span 1;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  #w-node-f2637c3c-8e95-d74c-f086-1ed9ee4e1b95-97ec5fbf {
-    grid-column: span 1 / span 1;
   }
 }
 

@@ -25,13 +25,22 @@ class FipeBrand(models.Model):
 
     def __str__(self):
         return f"{self.brand} ({self.vehicle_type})"
+    
+class FipeVersion(models.Model):
+    name = models.CharField(max_length=100)  # Ex: A1, A2, A3, A4
+    brand = models.ForeignKey(FipeBrand, on_delete=models.CASCADE, related_name='versions')
+
+    def __str__(self):
+        return f"{self.name} ({self.brand.brand})"
+
 
 class FipeModel(models.Model):
     model = models.CharField(max_length=100)
+    version = models.ForeignKey(FipeVersion, on_delete=models.CASCADE, null=True)
     brand = models.ForeignKey(FipeBrand, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.model} ({self.brand.brand})"
+        return f"{self.model} ({self.version.name}, {self.brand.brand})"
 
 class FipeYear(models.Model):
     year = models.IntegerField()
@@ -63,6 +72,9 @@ class FipePrice(models.Model):
 
     def __str__(self):
         return f"{self.price} ({self.model.model})"
+
+
+
 
 
 class Lead(models.Model):
