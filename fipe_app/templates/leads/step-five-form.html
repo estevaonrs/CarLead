@@ -13,7 +13,6 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"/>        
         <link href="https://fonts.googleapis.com" rel="preconnect"/>
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
-<<<<<<< HEAD
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -25,18 +24,6 @@
                 align-items: center; /* Alinha verticalmente */
             }
                 
-=======
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-        <style>
-        
-        .cf-logos-2--wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Espaçamento entre as divs */
-    align-items: center; /* Alinha verticalmente */
-}
-        
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
             .cf-logo-button {
                 width: 150px; /* Largura desejada */
                 height: 40px; /* Altura desejada */
@@ -48,7 +35,6 @@
                 border: 1px solid #ddd; /* Borda opcional para separar as divs */
                 padding: 10px; /* Espaçamento interno opcional */
                 background-color: #000c2c;
-<<<<<<< HEAD
                 color: #fff; /* Texto branco */
                 cursor: pointer; /* Muda o cursor para indicar que pode ser clicado */
             }
@@ -138,45 +124,6 @@
     transition: width 0.5s ease-in-out; /* Adiciona uma transição suave */
 }
         </style>
-=======
-
-            }
-
-            .checkbox-wrapper {
-    display: flex;
-    align-items: center;
-    margin-left: 10px; /* Espaço entre o botão do combustível e a caixa de seleção */
-}
-
-.checkbox-wrapper label {
-    margin-left: 5px; /* Espaço entre a checkbox e o label */
-    font-size: 14px; /* Tamanho da fonte do texto do label */
-    color: white; /* Cor do texto */
-}
-
-/* Estilo personalizado para a checkbox */
-.checkbox-wrapper input[type="checkbox"] {
-    accent-color: #4CAF50; /* Cor do tick da checkbox */
-}
-    .cf-logo-section-2 {
-            margin-bottom: 0;
-            padding-top: 100px;
-            padding-bottom: 300px;
-            } 
-            .cf-logo-1-heading {
-  color: #000;
-  margin-top: 0;
-  margin-bottom: 30px;
-  font-family: Montserrat, sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 130%;
-}
-            
-            </style>
-<link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-<link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
     </head>
     <body>
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="cf-navigation-2-bar w-nav">
@@ -193,7 +140,6 @@
         </div>
         <div class="cf-logo-section-2">
             <div class="cf-logo-2---wrapper">
-<<<<<<< HEAD
                 <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 100%; background-color: green;"></div>
                 </div><br>
@@ -223,27 +169,6 @@
                     </div>
     
                     <button type="submit" class="cf-logo-button">Enviar</button>
-=======
-                <h3 class="cf-logo-2-heading">SELECIONE O COMBÚSTIVEL</h3>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="cf-logos-2--wrapper">
-                        {% for fuel in fuels %}
-                        <button type="submit" style="color: white;" name="fuel_id" value="{{ fuel.id }}" class="cf-logo-button">
-                            {{ fuel.fuel }}
-                        </button>
-                        {% endfor %}
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="revisions_done" name="revisions_done" value="true" {% if lead.revisions_done_in_css %} checked{% endif %}>
-                            <label for="revisions_done" style="color: black; padding-top: 7px;">Revisões feitas na concessionaria</label>
-                        </div>
-                        
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="under_warranty" name="under_warranty" value="true" {% if lead.under_warranty %} checked{% endif %}>
-                            <label for="under_warranty"  style="color: black; padding-top: 7px;">Na garantia</label>
-                        </div>
-                    </div>
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
                 </form>
             </div>
         </div>
@@ -300,7 +225,6 @@
                 </div>
             </div>
         </footer>
-<<<<<<< HEAD
        <script>
          const progress = 70; // Porcentagem de progresso
             
@@ -310,9 +234,6 @@
             // Ajuste a largura da barra de progresso
             progressBar.style.width = progress + '%';
        </script>
-=======
-       
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
     </body>
 </html>
 

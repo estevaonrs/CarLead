@@ -3,13 +3,8 @@ from django.http import HttpResponse
 import locale
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 from django.db.models import Q
-<<<<<<< HEAD
 import json
 from django.http import JsonResponse
-=======
-
-
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
 from fipe_app.serializers import LeadSerializer
 from .models import FipeBrand, FipeModel, FipePrice, FipeYear, FipeFuel, Lead, FipeVersion
 from django.views.decorators.http import require_http_methods
@@ -24,18 +19,13 @@ import re
 @require_http_methods(["GET", "POST"])
 def step_1(request):
     search_query = request.GET.get('search', '')
-<<<<<<< HEAD
     brands = FipeBrand.objects.filter(show_in_template=True)
-=======
-    brands = FipeBrand.objects.filter(show_in_template=True)  # Filtrar apenas marcas que devem ser mostradas no template
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
 
     if search_query:
         brands = brands.filter(Q(brand__icontains=search_query))
 
     if request.method == "POST":
         brand_id = request.POST.get('brand_id')
-<<<<<<< HEAD
         if FipeBrand.objects.filter(id=brand_id).exists():
             request.session['brand_id'] = brand_id
             return redirect('fipe_app:step_1_1', brand_id=brand_id)
@@ -47,16 +37,6 @@ def step_1(request):
         return JsonResponse({'brands': brands_list})
 
     return render(request, 'leads/step-one-form.html', {'brands': brands})
-=======
-        # Verifica se o brand_id existe no banco de dados
-        if FipeBrand.objects.filter(id=brand_id, show_in_template=True).exists():  # Verificar se o brand_id está marcado para ser mostrado no template
-            request.session['brand_id'] = brand_id
-            return redirect('fipe_app:step_1_1', brand_id=brand_id)
-        else:
-            return HttpResponse("Marca selecionada não existe ou não deve ser mostrada.", status=404)
-    else:
-        return render(request, 'leads/step-one-form.html', {'brands': brands, 'search_query': search_query})
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
 
 # Etapa 2
 @require_http_methods(["GET", "POST"])
@@ -69,17 +49,13 @@ def step_1_1(request, brand_id):
         versions = versions.filter(Q(name__icontains=search_query))
 
     if request.method == "POST":
-<<<<<<< HEAD
         # O código para lidar com POST deve ser indentado aqui
-=======
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
         version_id = request.POST.get('version_id')
         if FipeVersion.objects.filter(id=version_id, brand=brand).exists():
             request.session['version_id'] = version_id
             return redirect('fipe_app:step_2', version_id=version_id)
         else:
             return HttpResponse("Versão selecionada não existe.", status=404)
-<<<<<<< HEAD
     elif request.is_ajax():
         # O código após elif deve ser indentado aqui
         versions_list = list(versions.values('id', 'name'))  # Adapte conforme necessário
@@ -89,20 +65,11 @@ def step_1_1(request, brand_id):
     return render(request, 'leads/step-one-one-form.html', {'versions': versions, 'brand': brand})
 
 # Etapa 3
-=======
-    else:
-        return render(request, 'leads/step-one-one-form.html', {'versions': versions, 'brand': brand, 'search_query': search_query})
-
-# Ajustar step_2 para aceitar version_id ao invés de brand_id
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
 def step_2(request, version_id):
     search_query = request.GET.get('search', '')
     version = get_object_or_404(FipeVersion, pk=version_id)
     models = FipeModel.objects.filter(version=version)
-<<<<<<< HEAD
     brand = version.brand  # Obtém o objeto brand associado à versão
-=======
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
 
     if search_query:
         models = models.filter(Q(model__icontains=search_query))
@@ -114,7 +81,6 @@ def step_2(request, version_id):
             return redirect('fipe_app:step_3', model_id=model_id)
         else:
             return HttpResponse("Modelo selecionado não existe.", status=404)
-<<<<<<< HEAD
     elif request.is_ajax():
         models_list = list(models.values('id', 'model'))  # Certifique-se de que 'model' é o campo correto.
         return JsonResponse({'models': models_list})
@@ -132,17 +98,6 @@ def step_3(request, model_id):
         model = get_object_or_404(FipeModel, pk=model_id)  # Obtenha o objeto model com base no ID
         # Verifica se o year_id existe para o modelo selecionado
         if FipeYear.objects.filter(id=year_id, model=model).exists():
-=======
-    else:
-        return render(request, 'leads/step-two-form.html', {'models': models, 'version': version, 'search_query': search_query})
-
-# Etapa 3
-def step_3(request, model_id):
-    if request.method == "POST":
-        year_id = request.POST.get('year_id')
-        # Verifica se o year_id existe para o modelo selecionado
-        if FipeYear.objects.filter(id=year_id, model_id=model_id).exists():
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
             request.session['year_id'] = year_id
             return redirect('fipe_app:step_4', year_id=year_id)
         else:
@@ -165,7 +120,6 @@ def step_4(request, year_id):
 # Etapa 5: Seleção do Combustível
 def step_5(request, year_id):
     if request.method == "POST":
-<<<<<<< HEAD
         fuel_type = request.POST.get('fuel_type')  # Atenção ao nome do campo aqui
         revisions_done = request.POST.get('revisions_done') == 'true'
         under_warranty = request.POST.get('under_warranty') == 'true'
@@ -178,20 +132,6 @@ def step_5(request, year_id):
             request.session['fuel_type'] = fuel_type
             request.session['revisions_done'] = revisions_done
             request.session['under_warranty'] = under_warranty
-=======
-        fuel_id = request.POST.get('fuel_id')
-        revisions_done = request.POST.get('revisions_done')
-        under_warranty = request.POST.get('under_warranty')
-
-        print("Fuel ID:", fuel_id)
-        print("Revisions Done:", revisions_done)
-        print("Under Warranty:", under_warranty)
-
-        if FipeFuel.objects.filter(id=fuel_id, year_id=year_id).exists():
-            request.session['fuel_id'] = fuel_id
-            request.session['revisions_done'] = request.POST.get('revisions_done') == 'true'
-            request.session['under_warranty'] = request.POST.get('under_warranty') == 'true'
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
 
             print("Session Data:", request.session.items())
 

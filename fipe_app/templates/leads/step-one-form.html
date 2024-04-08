@@ -11,7 +11,6 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"/>        
         <link href="https://fonts.googleapis.com" rel="preconnect"/>
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
-<<<<<<< HEAD
         <script src="https://kit.fontawesome.com/4e22b0d525.js" crossorigin="anonymous"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -20,31 +19,18 @@
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
         
-=======
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-************" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
         <style>
         
             .cf-logos-2--wrapper {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 10px; /* Espaçamento entre as divs */
-<<<<<<< HEAD
                 overflow: auto; /* Enables scrolling if content exceeds the div's height */
             }
         
             .cf-logo-button {
                 width: 100%;
                 height: 90px;
-=======
-            }
-        
-            .cf-logo-button {
-                width: 80%;
-                height: 70px;
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
                 display: flex;
                 align-items: center;
                 text-align: left; /* Alinha o texto à esquerda */
@@ -84,7 +70,6 @@
             padding-top: 40px;
             padding-bottom: 200px;
             }
-<<<<<<< HEAD
             
 .progress-bar-container {
     width: 100%;
@@ -117,15 +102,6 @@
     left: 0;
 }
     </style>
-=======
-
-
-           
-
-        </style>
-        <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-        <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
     </head>
     <body>
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="cf-navigation-2-bar w-nav">
@@ -141,7 +117,6 @@
             </div>
         </div>
         <div class="cf-logo-section-2">
-<<<<<<< HEAD
             
             <div class="cf-logo-2---wrapper">
                 <!--- <a href="{% url 'fipe_app:index' %}" class="back-button rounded">
@@ -151,18 +126,11 @@
                 <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 100%; background-color: green;"></div>
                 </div>
-=======
-            <div class="cf-logo-2---wrapper">
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
                 <h3 class="cf-logo-2-heading">SELECIONE SUA MARCA</h3>
                 <div class="container">
                     <div class="search-container" style="display: flex; align-items: center;">
                         <form method="get" action="{% url 'fipe_app:step_1' %}" style="display: flex;">
-<<<<<<< HEAD
                             <input type="text" id="search-input" name="search" placeholder="Pesquisar marca" style="height: 40px; border-radius: 5px 0 0 5px; padding: 5px 10px;"/>
-=======
-                            <input type="text" name="search" placeholder="Pesquisar marca" style="height: 40px; border-radius: 5px 0 0 5px; padding: 5px 10px;"/>
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
                             <button type="submit" style="padding: 5px; background: #000c2c; border: none; border-radius: 0 5px 5px 0; display: flex; align-items: center;">
                                 <i style="color: white;" class="fa fa-search"></i>
                             </button>
@@ -180,11 +148,7 @@
                                 {% if brand.image %}
                                     <img src="{{ brand.image.url }}" alt="{{ brand.brand }}" class="cf-logo-image"/>
                                 {% else %}
-<<<<<<< HEAD
                                     <img src="{% static 'images/placeholder.webp' %}" alt="Imagem padrão" class="cf-logo-image"/>
-=======
-                                    <img src="{% static 'images/65d62e504a2620490fd23955_Chevrolet.webp' %}" alt="Imagem padrão" class="cf-logo-image"/>
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
                                 {% endif %}
                                 <span style="text-align: left;" class="brand-text">{{ brand.brand }}</span>
                             </button>
@@ -247,7 +211,6 @@
                 </div>
             </div>
         </footer>
-<<<<<<< HEAD
         <script type="text/javascript">
                     $(document).ready(function() {
                     $('#search-input').keyup(function() {
@@ -283,9 +246,6 @@
             // Ajuste a largura da barra de progresso
             progressBar.style.width = progress + '%';</script>
             </script>
-=======
-
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
     </body>
 </html>
 
