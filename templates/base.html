@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ html_language }}">
+
+<head>
+    {% include 'partials/head.html' %}
+    <title>{% block title %}{% endblock title %} teste</title>
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/search.html' %}
+
+    <main class="main-content-container">
+        {% block content %}{% endblock content %}
+        {% include 'partials/pagination.html' %}
+    </main>
+
+    {% include 'partials/footer.html' %}
+
+</body>
+
+</html>
