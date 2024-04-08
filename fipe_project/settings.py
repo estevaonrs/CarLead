@@ -90,21 +90,6 @@ WSGI_APPLICATION = 'fipe_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-<<<<<<< HEAD
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cscnet',
-        'NAME': 'blogdjango',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'userdjango',
-        'PASSWORD': 'Teste1234@rt',
-    }
-}"""
-
-=======
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -118,10 +103,9 @@ DATABASES = {
 }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -168,12 +152,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticfiles"),
 ]
-<<<<<<< HEAD
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
-=======
->>>>>>> d0ac209f403076cc0538e42b79de5f850f31e9d8
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
