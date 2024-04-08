@@ -158,13 +158,12 @@ def step_6(request):
         brand_id = request.session.get('brand_id')
         model_id = request.session.get('model_id')
         year_id = request.session.get('year_id')
-        fuel_id = request.session.get('fuel_id')
+        fuel_id = request.session.get('fuel_type')  # Corrigido para 'fuel_type'
         mileage = Decimal(request.session.get('mileage', '0'))  # Convertendo de volta para Decimal
         revisions_done = request.session.get('revisions_done', False)
         under_warranty = request.session.get('under_warranty', False)
         revisions_done_in_css = request.session.get('revisions_done', False)
         under_warranty_css = request.session.get('under_warranty', False)
-
 
         print("Dados da sessão:")
         print("Marca ID:", brand_id)
@@ -176,7 +175,6 @@ def step_6(request):
         print("Na garantia:", under_warranty)
         print("Revisões feitas:", revisions_done_in_css)
         print("Na garantia:", under_warranty_css)
-
 
         # Busca as instâncias relacionadas
         brand = get_object_or_404(FipeBrand, pk=brand_id)
@@ -191,13 +189,11 @@ def step_6(request):
         print("Combustível:", fuel_obj)
 
         # Busca o FipePrice correspondente
-        fipe_price_obj = get_object_or_404(FipePrice, brand=brand, model=model, year=year_obj, fuel=fuel_obj)
-        original_price = currency_to_decimal(fipe_price_obj.price)
-
-        print("\nPreço original encontrado:", original_price)
-
-        if original_price is None:
-            return HttpResponse("Formato de preço inválido.", status=400)
+        fipe_price_obj = FipePrice.objects.filter(brand=brand, model=model, year=year_obj, fuel=fuel_obj).first()
+        if fipe_price_obj is not None:
+            original_price = currency_to_decimal(fipe_price_obj.price)
+        else:
+            return HttpResponse("No FipePrice matches the given query.", status=404)
         
         # Define a porcentagem inicial com base na quilometragem
         km_brackets = [
