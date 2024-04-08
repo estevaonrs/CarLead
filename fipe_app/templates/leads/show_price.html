@@ -131,19 +131,19 @@
 }
 
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
+  display: none; /* Por padrão, o modal não é exibido */
+  position:fixed; /* Faz o modal sobrepor o conteúdo */
+  z-index: 1; /* Coloca o modal acima de tudo */
   left: 0;
-  top: 0;
+  margin-top: 100px;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0); /* Fundo completamente transparente */
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: auto; /* Centraliza horizontal e verticalmente */
+  background-color: #000c2c; /* Fundo branco do modal */
+  margin: 15% auto; /* Centraliza verticalmente */
   padding: 20px;
   border-radius: 5px;
   max-width: 50%;
@@ -163,6 +163,11 @@
   cursor: pointer;
 }
 
+body {
+  font-family:  'Articulat Cf Extra', sans-serif; /* Substitua 'NomeDaFonte' pela sua fonte desejada */
+
+}
+
 </style>
 </head>
 <body>
@@ -170,7 +175,7 @@
     <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <p>Esse valor é composto por XXXXXXXX logo, XXXXXXXX...</p>
+          <p style="color: #fff;">Esse valor é composto por XXXXXXXX logo, XXXXXXXX...</p>
         </div>
       </div>
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="cf-navigation-2-bar w-nav">
@@ -188,7 +193,7 @@
         <div class="brix---section-hero-top-small">
             
             <div class="brix---container-default-2 w-container">
-              
+              <br><br>
   
                 <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 100%; background-color: green;"></div>
