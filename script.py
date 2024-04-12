@@ -23,55 +23,59 @@ def make_request(endpoint, params=None):
 
 # Função para obter informações Fipe e adicionar ao banco de dados
 def fetch_and_append_data(vehicle_type, reference, brand, model, year):
-    # Obtendo informações Fipe específicas para o veículo
     vehicle_info = make_request(f'/{vehicle_type}/brands/{brand["code"]}/models/{model["code"]}/years/{year["code"]}')
-    
     if vehicle_info:
         try:
-            # Obtendo ou criando os objetos relacionados
-            fipe_vehicle_type, created = FipeVehicleType.objects.get_or_create(vehicle_type=vehicle_type)
-            fipe_brand, created = FipeBrand.objects.get_or_create(brand=vehicle_info["brand"], vehicle_type=fipe_vehicle_type)
-            fipe_model, created = FipeModel.objects.get_or_create(model=vehicle_info["model"], brand=fipe_brand)
-            fipe_year, created = FipeYear.objects.get_or_create(year=int(vehicle_info["modelYear"]), model=fipe_model)
-            fipe_fuel, created = FipeFuel.objects.get_or_create(fuel=vehicle_info["fuel"], year=fipe_year)
+            fipe_vehicle_type, _ = FipeVehicleType.objects.get_or_create(vehicle_type=vehicle_type)
+            fipe_brand, _ = FipeBrand.objects.get_or_create(brand=vehicle_info["brand"], vehicle_type=fipe_vehicle_type)
+            fipe_model, _ = FipeModel.objects.get_or_create(model=vehicle_info["model"], brand=fipe_brand)
+            fipe_year, _ = FipeYear.objects.get_or_create(year=int(vehicle_info["modelYear"]), model=fipe_model)
+            fipe_fuel, _ = FipeFuel.objects.get_or_create(fuel=vehicle_info["fuel"], year=fipe_year)
 
-            # Adicionando dados ao banco de dados
-            FipePrice.objects.create(
-                price=vehicle_info["price"],
+            fipe_prices = FipePrice.objects.filter(
                 brand=fipe_brand,
                 model=fipe_model,
                 fuel=fipe_fuel,
                 year=fipe_year,
             )
-            print(f"Saved: {vehicle_info['brand']} - {vehicle_info['model']} - Year: {vehicle_info['modelYear']} - Price: {vehicle_info['price']}")
+
+            if fipe_prices.exists():
+                for fipe_price in fipe_prices:
+                    if fipe_price.price != vehicle_info["price"]:
+                        print(f"{vehicle_info['brand']} - {vehicle_info['model']} - Ano: {vehicle_info['modelYear']} Já existe, o preço atual é {fipe_price.price} e vamos atualizar para {vehicle_info['price']}")
+                        fipe_price.price = vehicle_info["price"]
+                        fipe_price.save()
+                    else:
+                        print(f"O preço para {vehicle_info['brand']} - {vehicle_info['model']} - Ano: {vehicle_info['modelYear']} já está atualizado.")
+            else:
+                FipePrice.objects.create(
+                    price=vehicle_info["price"],
+                    brand=fipe_brand,
+                    model=fipe_model,
+                    fuel=fipe_fuel,
+                    year=fipe_year,
+                )
+                print(f"Salvo: {vehicle_info['brand']} - {vehicle_info['model']} - Ano: {vehicle_info['modelYear']} - Preço: {vehicle_info['price']}")
+
         except IntegrityError as e:
-            # Se houver uma violação de integridade (possível duplicata), imprima uma mensagem e ignore
-            print(f"Ignored duplicate entry: {vehicle_info['brand']} - {vehicle_info['model']} - Year: {vehicle_info['modelYear']} - Price: {vehicle_info['price']}")
+            print(f"Erro ao atualizar entrada: {vehicle_info['brand']} - {vehicle_info['model']} - Ano: {vehicle_info['modelYear']} - Preço: {vehicle_info['price']} - {e}")
 
-
-# Função para popular o banco de dados com informações da API Fipe
 def populate_database():
-    # Populando o banco de dados com dados da API Fipe
-    vehicle_type = 'cars'  # Pegando apenas carros
-    reference = {'code': '202403', 'month': 'Março de 2024'}  # Especificando a referência do mês desejado (março de 2024)
+    vehicle_type = 'cars'
+    reference = {'code': '202404', 'month': 'Abril de 2024'}
 
     print(f'Processing {vehicle_type} - Reference: {reference["month"]}')
     
-    # Obtendo marcas para o tipo de veículo
     brands = make_request(f'/{vehicle_type}/brands')
     if brands:
         for brand in brands:
-            # Obtendo modelos para a marca
             models = make_request(f'/{vehicle_type}/brands/{brand["code"]}/models')
             if models:
                 for model in models:
-                    # Obtendo anos para o modelo
                     years = make_request(f'/{vehicle_type}/brands/{brand["code"]}/models/{model["code"]}/years')
                     if years:
                         for year in years:
-                            # Verificando se o ano é maior que 2014
                             if int(year["code"][:4]) > 2014:
-                                # Adicionando tarefa de busca e inserção
                                 fetch_and_append_data(vehicle_type, reference, brand, model, year)
 
 if __name__ == "__main__":
