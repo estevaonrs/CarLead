@@ -14,7 +14,60 @@ from decimal import Decimal, InvalidOperation
 from rest_framework import viewsets
 
 import re
+from .helpers import (req, url_api, url_tabelaref, url_marcas, 
+url_modelos, url_ano_modelos, url_todos_parametros, referencias_anos, referencias, tipo_veiculo)
 
+
+def listar_marcas(request):
+
+    dados_veiculo_marca = {
+        'codigoTabelaReferencia': referencias,
+        'codigoTipoVeiculo': tipo_veiculo
+    }
+
+    marcas = req(url_marcas, dados_veiculo_marca)
+
+    return render(request, 'leads/listar_marcas.html', {'marcas': marcas})
+
+
+def listar_modelos(request):
+    if request.method == 'POST':
+        marca_id = request.POST.get('marca_id')
+
+        dados_veiculo_modelo = {
+            'codigoTabelaReferencia': referencias,
+            'codigoTipoVeiculo': tipo_veiculo,
+            'codigoMarca': marca_id
+        }
+
+        modelos = req(url_modelos, dados_veiculo_modelo)
+
+        return render(request, 'leads/listar_modelos.html', {'modelos': modelos['Modelos'], 'marca_id': marca_id})
+
+
+def listar_ano_modelos(request):
+    if request.method == 'POST':
+        modelo_id = request.POST.get('modelo_id')
+        marca_id = request.POST.get('marca_id')
+
+        dados_veiculos_ano_modelo = {
+            'codigoTabelaReferencia': referencias,
+            'codigoTipoVeiculo': tipo_veiculo,
+            'codigoMarca': marca_id,
+            'codigoModelo': modelo_id 
+        }
+
+        anos = req(url_ano_modelos, dados_veiculos_ano_modelo)
+
+        anos_data = [{'label': item['Label'], 'value': item['Value']} for item in anos]
+
+        return render(request, 'leads/listar_ano_modelos.html', {
+            'anos_data': anos_data,
+            'modelo_id': modelo_id,
+            'marca_id': marca_id
+        })
+
+    
 # Etapa 1
 @require_http_methods(["GET", "POST"])
 def step_1(request):
@@ -110,8 +163,8 @@ def step_3(request, model_id):
 def step_4(request, year_id):
     if request.method == "POST":
         mileage = request.POST.get('mileage')
-        request.session['mileage'] = float(mileage)  # Convertendo para float
-        # Corrigido para incluir year_id nos argumentos de redirecionamento
+        request.session['mileage'] = float(mileage)
+
         return redirect('fipe_app:step_5', year_id=year_id)
     else:
         return render(request, 'leads/step-four-form.html', {'year_id': year_id})

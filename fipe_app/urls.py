@@ -22,8 +22,10 @@ urlpatterns = [
     path('step-6/', views.step_6, name='step_6'),
     path('show-price/<int:lead_id>/', views.show_price, name='show_price'),
     path('api/', include(router.urls)),
-    
+    path('listar-marcas/', views.listar_marcas, name='listar_marcas'),
+    path('listar_modelos/', views.listar_modelos, name='listar_modelos'),
+    path('listar-ano-modelos/', views.listar_ano_modelos, name='listar_ano_modelos'),
 
-    # Adicione uma URL para a página de sucesso
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
