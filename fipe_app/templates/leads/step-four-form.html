@@ -38,6 +38,25 @@
     overflow: hidden;
 }
 
+.checkbox-wrapper {
+                display: flex;
+                align-items: center;
+                margin: 10px 0; /* Ajustado para se aplicar a todos os lados */
+                padding: 10px;
+                background-color: #000c2c;
+                border-radius: 10px;
+            }
+        
+            .checkbox-wrapper label {
+                margin-left: 5px; /* Espaço entre a checkbox e o label */
+                font-size: 14px; /* Tamanho da fonte do texto do label */
+                color: white; /* Cor do texto */
+            }
+        
+            .checkbox-wrapper input[type="checkbox"] {
+                accent-color: #4CAF50; /* Cor do tick da checkbox */
+            }
+
 .progress-bar {
     height: 20px;
     width: 0; /* Será alterado dinamicamente para refletir o progresso */
@@ -70,13 +89,23 @@
                     <form method="post" class="cf-form">
                         {% csrf_token %}
                         <input class="cf-newsletter-text-field w-input" style="background-color: #000c2c; border-radius: 10px; color: #fff;" placeholder="Digite a quilometragem" type="number" id="mileage" name="mileage" required />
+                        <br>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="revisions_done" name="revisions_done" value="true">
+                            <label for="revisions_done">Revisões feitas na concessionária</label>
+                        </div>
+        
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="under_warranty" name="under_warranty" value="true">
+                            <label for="under_warranty">Na garantia</label>
+                        </div>
                         <button type="submit" style="border-radius: 10px;" class="cf-submit-button w-button">Avançar</button>
+                        
                         <input type="hidden" name="modelo_id" value="{{ modelo_id }}">
                         <input type="hidden" name="marca_id" value="{{ marca_id }}">
                         <input type="hidden" name="marca_label" value="{{ marca_label }}"> 
                         <input type="hidden" name="modelo_label" value="{{ modelo.Label }}">    
                     </form>
-
                     
                 </div>
             </div>
