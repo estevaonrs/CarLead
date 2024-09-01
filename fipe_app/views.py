@@ -6,7 +6,7 @@ from django.db.models import Q
 import json
 from django.http import JsonResponse
 from fipe_app.serializers import LeadSerializer
-from .models import FipeBrand, FipeModel, FipePrice, FipeYear, FipeFuel, Lead, FipeVersion
+from .models import Lead
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from django.utils import timezone
@@ -33,6 +33,7 @@ def listar_marcas(request):
 def listar_modelos(request):
     if request.method == 'POST':
         marca_id = request.POST.get('marca_id')
+        marca_label = request.POST.get('marca_label')  # Adiciona essa linha
 
         dados_veiculo_modelo = {
             'codigoTabelaReferencia': referencias,
@@ -42,13 +43,25 @@ def listar_modelos(request):
 
         modelos = req(url_modelos, dados_veiculo_modelo)
 
-        return render(request, 'leads/listar_modelos.html', {'modelos': modelos['Modelos'], 'marca_id': marca_id})
+        # Aqui, vamos armazenar os dados da marca na sessão
+        request.session['marca_id'] = marca_id
+        request.session['marca_label'] = marca_label  # Armazena o label na sessão
 
+        return render(request, 'leads/listar_modelos.html', {'modelos': modelos['Modelos'], 'marca_id': marca_id, 'marca_label': marca_label})  # Adiciona o label
 
 def listar_ano_modelos(request):
     if request.method == 'POST':
+        ano_id = request.POST.get('ano_id')
         modelo_id = request.POST.get('modelo_id')
         marca_id = request.POST.get('marca_id')
+        marca_label = request.POST.get('marca_label')
+        modelo_label = request.POST.get('modelo_label')  # Adiciona essa linha
+
+        request.session['marca_id'] = marca_id
+        request.session['marca_label'] = marca_label  # Armazena o label na sessão
+        request.session['modelo_id'] = modelo_id
+        request.session['modelo_label'] = modelo_label  # Armazena o label na sessão
+        request.session['ano_id'] = ano_id
 
         dados_veiculos_ano_modelo = {
             'codigoTabelaReferencia': referencias,
@@ -59,141 +72,55 @@ def listar_ano_modelos(request):
 
         anos = req(url_ano_modelos, dados_veiculos_ano_modelo)
 
-        anos_data = [{'label': item['Label'], 'value': item['Value']} for item in anos]
+        anos_data = [{'label': item['Value'], 'value': item['Label']} for item in anos]
 
-        return render(request, 'leads/listar_ano_modelos.html', {
+        context = {
             'anos_data': anos_data,
             'modelo_id': modelo_id,
-            'marca_id': marca_id
-        })
+            'marca_id': marca_id,
+        }
 
-    
-# Etapa 1
-@require_http_methods(["GET", "POST"])
-def step_1(request):
-    search_query = request.GET.get('search', '')
-    brands = FipeBrand.objects.filter(show_in_template=True)
-
-    if search_query:
-        brands = brands.filter(Q(brand__icontains=search_query))
-
-    if request.method == "POST":
-        brand_id = request.POST.get('brand_id')
-        if FipeBrand.objects.filter(id=brand_id).exists():
-            request.session['brand_id'] = brand_id
-            return redirect('fipe_app:step_1_1', brand_id=brand_id)
+        if ano_id: 
+            return redirect('fipe_app:step_4') 
         else:
-            return HttpResponse("Marca selecionada não existe.", status=404)
+            context['error_message'] = "Ano não selecionado. Por favor, selecione um ano." 
 
-    if request.is_ajax():
-        brands_list = list(brands.values('id', 'brand', 'image'))
-        return JsonResponse({'brands': brands_list})
+        return render(request, 'leads/listar_ano_modelos.html', context)
 
-    return render(request, 'leads/step-one-form.html', {'brands': brands})
+    return render(request, 'leads/listar_ano_modelos.html')
 
-# Etapa 2
-@require_http_methods(["GET", "POST"])
-def step_1_1(request, brand_id):
-    search_query = request.GET.get('search', '')
-    brand = get_object_or_404(FipeBrand, pk=brand_id)
-    versions = FipeVersion.objects.filter(brand=brand)
-
-    if search_query:
-        versions = versions.filter(Q(name__icontains=search_query))
-
-    if request.method == "POST":
-        # O código para lidar com POST deve ser indentado aqui
-        version_id = request.POST.get('version_id')
-        if FipeVersion.objects.filter(id=version_id, brand=brand).exists():
-            request.session['version_id'] = version_id
-            return redirect('fipe_app:step_2', version_id=version_id)
-        else:
-            return HttpResponse("Versão selecionada não existe.", status=404)
-    elif request.is_ajax():
-        # O código após elif deve ser indentado aqui
-        versions_list = list(versions.values('id', 'name'))  # Adapte conforme necessário
-        return JsonResponse({'versions': versions_list})
-
-    # O resto do código segue normalmente
-    return render(request, 'leads/step-one-one-form.html', {'versions': versions, 'brand': brand})
-
-# Etapa 3
-def step_2(request, version_id):
-    search_query = request.GET.get('search', '')
-    version = get_object_or_404(FipeVersion, pk=version_id)
-    models = FipeModel.objects.filter(version=version)
-    brand = version.brand  # Obtém o objeto brand associado à versão
-
-    if search_query:
-        models = models.filter(Q(model__icontains=search_query))
-
-    if request.method == "POST":
-        model_id = request.POST.get('model_id')
-        if models.filter(id=model_id).exists():
-            request.session['model_id'] = model_id
-            return redirect('fipe_app:step_3', model_id=model_id)
-        else:
-            return HttpResponse("Modelo selecionado não existe.", status=404)
-    elif request.is_ajax():
-        models_list = list(models.values('id', 'model'))  # Certifique-se de que 'model' é o campo correto.
-        return JsonResponse({'models': models_list})
-
-    return render(request, 'leads/step-two-form.html', {
-        'models': models,
-        'version': version,
-        'search_query': search_query,
-        'brand': brand,  # Adiciona o objeto brand ao contexto
-    })
-
-def step_3(request, model_id):
-    if request.method == "POST":
-        year_id = request.POST.get('year_id')
-        model = get_object_or_404(FipeModel, pk=model_id)  # Obtenha o objeto model com base no ID
-        # Verifica se o year_id existe para o modelo selecionado
-        if FipeYear.objects.filter(id=year_id, model=model).exists():
-            request.session['year_id'] = year_id
-            return redirect('fipe_app:step_4', year_id=year_id)
-        else:
-            return HttpResponse("Ano selecionado não existe.", status=404)
-    else:
-        years = FipeYear.objects.filter(model_id=model_id)
-        return render(request, 'leads/step-three-form.html', {'years': years, 'model_id': model_id})
 
 # Etapa 4
-def step_4(request, year_id):
+def step_4(request):
+    context = {}
+
     if request.method == "POST":
         mileage = request.POST.get('mileage')
-        request.session['mileage'] = float(mileage)
-
-        return redirect('fipe_app:step_5', year_id=year_id)
-    else:
-        return render(request, 'leads/step-four-form.html', {'year_id': year_id})
-
-# Etapa 5
-# Etapa 5: Seleção do Combustível
-def step_5(request, year_id):
-    if request.method == "POST":
-        fuel_type = request.POST.get('fuel_type')  # Atenção ao nome do campo aqui
         revisions_done = request.POST.get('revisions_done') == 'true'
         under_warranty = request.POST.get('under_warranty') == 'true'
 
-        print("Fuel Type:", fuel_type)
-        print("Revisions Done:", revisions_done)
-        print("Under Warranty:", under_warranty)
-
-        if FipeFuel.objects.filter(id=fuel_type, year_id=year_id).exists():
-            request.session['fuel_type'] = fuel_type
+        if mileage:
+            request.session['mileage'] = float(mileage)
             request.session['revisions_done'] = revisions_done
             request.session['under_warranty'] = under_warranty
 
-            print("Session Data:", request.session.items())
+            marca_id = request.session.get('marca_id')
+            modelo_id = request.session.get('modelo_id')
+            ano_id = request.session.get('ano_id')
 
-            return redirect('fipe_app:step_6')
-        else:
-            return HttpResponse("Combustível selecionado não existe.", status=404)
-    else:
-        fuels = FipeFuel.objects.filter(year_id=year_id)
-        return render(request, 'leads/step-five-form.html', {'fuels': fuels, 'year_id': year_id})
+            print("Dados na sessão após o POST:")
+            print("Marca ID:", request.session.get('marca_id'))
+            print("Marca LABEL:", request.session.get('marca_label'))
+            print("Modelo ID:", request.session.get('modelo_id'))
+            print("Modelo LABEL:", request.session.get('modelo_label'))
+            print("Ano ID:", request.session.get('ano_id'))
+
+            if marca_id and modelo_id and ano_id:
+                return redirect('fipe_app:step_6')
+            else:
+                print("Um ou mais IDs não estão definidos na sessão.")
+
+    return render(request, 'leads/step-four-form.html', context)
 
 
 def currency_to_decimal(value):
@@ -207,158 +134,142 @@ def currency_to_decimal(value):
 
 def step_6(request):
     if request.method == "POST":
-        # Recupera e verifica os dados da sessão
-        brand_id = request.session.get('brand_id')
-        model_id = request.session.get('model_id')
-        year_id = request.session.get('year_id')
-        fuel_id = request.session.get('fuel_type')  # Corrigido para 'fuel_type'
-        mileage = Decimal(request.session.get('mileage', '0'))  # Convertendo de volta para Decimal
+        # Recupera os dados da sessão
+        marca_id = request.session.get('marca_id')
+        modelo_id = request.session.get('modelo_id')
+        ano_id = request.session.get('ano_id')
+        marca_label = request.session.get('marca_label')
+        modelo_label = request.POST.get('modelo_label')
+
+        if not ano_id:
+            print("Ano ID não está definido na sessão.")
+            return redirect('fipe_app:step_4')
+
+        mileage = Decimal(request.session.get('mileage', '0'))
         revisions_done = request.session.get('revisions_done', False)
         under_warranty = request.session.get('under_warranty', False)
-        revisions_done_in_css = request.session.get('revisions_done', False)
-        under_warranty_css = request.session.get('under_warranty', False)
 
-        print("Dados da sessão:")
-        print("Marca ID:", brand_id)
-        print("Modelo ID:", model_id)
-        print("Ano ID:", year_id)
-        print("Combustível ID:", fuel_id)
-        print("Quilometragem:", mileage)
-        print("Revisões feitas:", revisions_done)
-        print("Na garantia:", under_warranty)
-        print("Revisões feitas:", revisions_done_in_css)
-        print("Na garantia:", under_warranty_css)
+        # Exibe dados para depuração
+        print_session_data(marca_id, marca_label, modelo_id, modelo_label, ano_id, mileage, revisions_done, under_warranty)
 
-        # Busca as instâncias relacionadas
-        brand = get_object_or_404(FipeBrand, pk=brand_id)
-        model = get_object_or_404(FipeModel, pk=model_id)
-        year_obj = get_object_or_404(FipeYear, pk=year_id)
-        fuel_obj = get_object_or_404(FipeFuel, pk=fuel_id)
+        # Obtenha o valor da tabela Fipe
+        valor_fipe, fuel_id = get_fipe_value(ano_id, marca_id, modelo_id)
 
-        print("\nInstâncias relacionadas encontradas:")
-        print("Marca:", brand)
-        print("Modelo:", model)
-        print("Ano:", year_obj)
-        print("Combustível:", fuel_obj)
-
-        # Busca o FipePrice correspondente
-        fipe_price_obj = FipePrice.objects.filter(brand=brand, model=model, year=year_obj, fuel=fuel_obj).first()
-        if fipe_price_obj is not None:
-            original_price = currency_to_decimal(fipe_price_obj.price)
-        else:
-            return HttpResponse("No FipePrice matches the given query.", status=404)
-        
-        # Define a porcentagem inicial com base na quilometragem
-        km_brackets = [
-            (0, 9999, Decimal('0.82')),
-            (10000, 19999, Decimal('0.80')),
-            (20000, 29999, Decimal('0.79')),
-            (30000, 49999, Decimal('0.78')),
-            (50000, 59999, Decimal('0.77')),
-            (60000, 74999, Decimal('0.72')),
-            (75000, 99999, Decimal('0.62')),
-            (100000, 130000, Decimal('0.60')),
-        ]
-        percentage = next((perc for min_km, max_km, perc in km_brackets if min_km <= mileage <= max_km), Decimal('0.60'))
-
-        print("\nPorcentagem inicial com base na quilometragem:", percentage)
-
-        # Adiciona os percentuais de revisões feitas e garantia
-        if revisions_done_in_css:
-            percentage += Decimal('0.01')
-            print("Percentual de revisões adicionado: 0.01")
-        else:
-            print("Percentual de revisões não adicionado: 0.00")
-
-        if under_warranty_css:
-            percentage += Decimal('0.02')
-            print("Percentual de garantia adicionado: 0.02")
-        else:
-            print("Percentual de garantia não adicionado: 0.00")
-
-        print("\nPorcentagem após adicionar revisões e garantia:", percentage)
-
-        # Ajusta a porcentagem baseada na quilometragem por ano
-        current_year = timezone.now().year
-        years_passed = max(current_year - year_obj.year, 1)  # Evitar divisão por zero
-        km_per_year = mileage / years_passed
-        if km_per_year < 10000:
-            percentage += Decimal('0.02')
-            print("Percentual de +2% adicionado devido à baixa quilometragem por ano.")
-        elif km_per_year > 10000:
-            percentage -= Decimal('0.03')
-            print("Percentual de -3% subtraído devido à alta quilometragem por ano.")
-
-        print("\nPorcentagem após ajuste baseado na quilometragem por ano:", percentage)
-
-        # Listas de modelos com ajustes específicos
-            
-        # Categorias de mercado
-        ruim_mercado = ['NSX 3.0']
-        queimados = ['Integra GS 1.8']
-        valorizar_modelos = ['MARRUÁ AM 100 2.8 CD TDI Diesel']
-
-        market_category = None
-        if model.model in ruim_mercado:
-            percentage -= Decimal('0.10')
-            market_category = 'Ruim de mercado'
-            print("Percentual de -10% subtraído devido ao modelo estar na lista de mercado ruim.")
-        elif model.model in queimados:
-            percentage -= Decimal('0.30')
-            market_category = 'Mercado Queimado'
-            print("Percentual de -30% subtraído devido ao modelo estar na lista de modelos queimados.")
-        elif model.model in valorizar_modelos:
-            percentage += Decimal('0.02')
-            market_category = 'Modelo valorizado'
-            print("Percentual de +2% adicionado devido ao modelo estar na lista de modelos valorizados.")
-        else:
-            market_category = "Comum"
-
-        # Verifica se o tipo de combustível é diesel
-        if fuel_obj.fuel.lower() == 'diesel':
-            percentage -= Decimal('0.10')
-            market_category = 'Diesel'
-            print("Percentual de -10% subtraído devido ao tipo de combustível ser diesel.")
-
-        # Define a categoria do carro com base na quilometragem
-        car_category = 'Salão' if mileage <= 75000 else 'Repasse'
-
-       # Calcula o preço final
-        final_price = original_price * percentage
-
-        print("\nPreço final calculado:", final_price)
-
-        # Dados do formulário
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
+        # Calcule o preço final
+        final_price, percentage, market_category = calculate_final_price(valor_fipe, mileage, revisions_done, under_warranty, modelo_id, fuel_id)
 
         # Cria a Lead
-        lead = Lead.objects.create(
-            name=name,
-            email=email,
-            phone=phone,
-            mileage=mileage,
-            brand=brand,
-            model=model,
-            year=year_obj,
-            fuel=fuel_obj,
-            price=final_price.quantize(Decimal('0.01')),  # Assegura duas casas decimais
-            market_category=market_category,
-            car_category=car_category,
-            original_price=original_price.quantize(Decimal('0.01')),  # Assegura duas casas decimais
-            pricing_percentage=percentage.quantize(Decimal('0.01')),  # Assegura duas casas decimais
-            created_at=timezone.now(),  # Data e hora atuais
-            revisions_done_in_css=revisions_done_in_css,
-            under_warranty=under_warranty_css,
-        )
+        lead = create_lead(request, marca_label, modelo_label, ano_id, fuel_id, final_price, valor_fipe, percentage, revisions_done, under_warranty)
 
-        # Redireciona para a página de exibição do preço
+        # Limpa os dados da sessão após criar a Lead
+        request.session.flush()
+
         return redirect('fipe_app:show_price', lead_id=lead.id)
 
-    else:
-        # Renderiza o formulário se o método não for POST
-        return render(request, 'leads/step-six-form.html')
+    return render(request, 'leads/step-six-form.html')
+
+def print_session_data(marca_id, marca_label, modelo_id, modelo_label, ano_id, mileage, revisions_done, under_warranty):
+    print("Dados da sessão:")
+    print("Marca ID:", marca_id)
+    print("Marca LABEL:", marca_label)
+    print("Modelo ID:", modelo_id)
+    print("Modelo LABEL:", modelo_label)
+    print("Ano ID:", ano_id)
+    print("Quilometragem:", mileage)
+    print("Revisões feitas:", revisions_done)
+    print("Na garantia:", under_warranty)
+
+def get_fipe_value(ano_id, marca_id, modelo_id):
+    try:
+        ano_id, fuel_id = ano_id.split(' ', 1)
+    except ValueError:
+        print("Formato de ano inválido.")
+        return Decimal('0.00'), '1'
+
+    dados_veiculos_ano_modelo = {
+        'codigoTabelaReferencia': referencias,
+        'codigoTipoVeiculo': 1,
+        'codigoMarca': marca_id,
+        'codigoModelo': modelo_id,
+        'ano': ano_id,
+    }
+
+    response = req(url_todos_parametros, dados_veiculos_ano_modelo)
+    valor_fipe = Decimal(response.get('Valor', '0.00').replace('R$', '').replace('.', '').replace(',', '.'))
+    print("Valor Fipe encontrado:", valor_fipe)
+    return valor_fipe, fuel_id
+
+def calculate_final_price(valor_fipe, mileage, revisions_done, under_warranty, modelo_id, fuel_id):
+    km_brackets = [
+        (0, 9999, Decimal('0.82')),
+        (10000, 19999, Decimal('0.80')),
+        (20000, 29999, Decimal('0.79')),
+        (30000, 49999, Decimal('0.78')),
+        (50000, 59999, Decimal('0.77')),
+        (60000, 74999, Decimal('0.72')),
+        (75000, 99999, Decimal('0.62')),
+        (100000, 130000, Decimal('0.60')),
+    ]
+    
+    percentage = next((perc for min_km, max_km, perc in km_brackets if min_km <= mileage <= max_km), Decimal('0.60'))
+
+    if revisions_done:
+        percentage += Decimal('0.01')
+    if under_warranty:
+        percentage += Decimal('0.02')
+
+    # Ajustes de acordo com o modelo e tipo de combustível
+    market_category = adjust_percentage_by_model(modelo_id, fuel_id, percentage)
+
+    final_price = valor_fipe * percentage
+    print("\nPreço final calculado:", final_price)
+    return final_price, percentage, market_category
+
+def adjust_percentage_by_model(modelo_id, fuel_id, percentage):
+    ruim_mercado = ['NSX 3.0']
+    queimados = ['Integra GS 1.8']
+    valorizar_modelos = ['MARRUÁ AM 100 2.8 CD TDI Diesel']
+
+    market_category = "Comum"
+    if modelo_id in ruim_mercado:
+        percentage -= Decimal('0.10')
+        market_category = 'Ruim de mercado'
+    elif modelo_id in queimados:
+        percentage -= Decimal('0.30')
+        market_category = 'Mercado Queimado'
+    elif modelo_id in valorizar_modelos:
+        percentage += Decimal('0.02')
+        market_category = 'Modelo valorizado'
+
+    if fuel_id.lower() == 'diesel':
+        percentage -= Decimal('0.10')
+        market_category = 'Diesel'
+
+    return market_category
+
+def create_lead(request, marca_label, modelo_label, ano_id, fuel_id, final_price, valor_fipe, percentage, revisions_done, under_warranty):
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    phone = request.POST.get('phone')
+
+    lead = Lead.objects.create(
+        name=name,
+        email=email,
+        phone=phone,
+        mileage=request.session.get('mileage', '0'),
+        brand=marca_label,
+        model=modelo_label,
+        year=ano_id,
+        fuel=fuel_id,
+        price=final_price,
+        market_category='Comum',  # Ajuste conforme a lógica de mercado
+        car_category='Salão',  # Ajuste conforme a lógica de categoria
+        original_price=valor_fipe,
+        pricing_percentage=percentage,
+        revisions_done_in_css=revisions_done,
+        under_warranty=under_warranty
+    )
+    return lead
     
 # Função de utilitário para formatar números como moeda
 def format_currency(value):
@@ -371,7 +282,6 @@ def format_currency(value):
 def show_price(request, lead_id):
     lead = Lead.objects.get(id=lead_id)
     
-    # Formatar os preços
     lead.original_price = format_currency(lead.original_price)
     lead.price = format_currency(lead.price)
     

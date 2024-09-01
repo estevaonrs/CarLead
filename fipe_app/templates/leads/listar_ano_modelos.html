@@ -97,15 +97,17 @@
                     <div class="progress-bar" style="width: 100%; background-color: green;"></div>
                 </div><br>
                 <h3 class="cf-logo-2-heading" style="height: 10px;">SELECIONE O ANO</h3>
-                <form method="post" action="">
+                <form method="post" action="{% url 'fipe_app:listar_ano_modelos' %}">
                     {% csrf_token %}
                     <div class="cf-logos-2--wrapper">
                         {% for ano in anos_data %}
-                        <button type="submit" name="ano_id" value="{{ ano.Value }}" class="cf-logo-button">
-                            <span style="text-align: left;" class="brand-text">{{ ano.label }}</span>
+                        <button type="submit" name="ano_id" value="{{ ano.value }}" class="cf-logo-button">
+                            <span style="text-align: left;" class="brand-text">{{ ano.value }}</span>
                         </button>
                         {% endfor %}
                     </div>
+                    <input type="hidden" name="modelo_id" value="{{ modelo_id }}">
+                    <input type="hidden" name="marca_id" value="{{ marca_id }}">
                 </form>
                 
             </div>

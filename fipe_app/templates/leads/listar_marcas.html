@@ -125,7 +125,7 @@
                 <h3 class="cf-logo-2-heading">SELECIONE SUA MARCA</h3>
                 <div class="container">
                     <div class="search-container" style="display: flex; align-items: center;">
-                        <form method="get" action="{% url 'fipe_app:step_1' %}" style="display: flex;">
+                        <form method="get" action="" style="display: flex;">
                             <input type="text" id="search-input" name="search" placeholder="Pesquisar marca" style="height: 40px; border-radius: 5px 0 0 5px; padding: 5px 10px;"/>
                             <button type="submit" style="padding: 5px; background: #000c2c; border: none; border-radius: 0 5px 5px 0; display: flex; align-items: center;">
                                 <i style="color: white;" class="fa fa-search"></i>
@@ -142,6 +142,7 @@
                         <button type="submit" name="marca_id" value="{{ marca.Value }}" class="cf-logo-button">
                             <span style="text-align: left;" class="brand-text">{{ marca.Label }} - Código: {{ marca.Value }}</span>
                         </button>
+                        <input type="hidden" name="marca_label" value="{{ marca.Label }}">  <!-- Campo escondido -->
                         {% endfor %}
                     </div>
                 </form>

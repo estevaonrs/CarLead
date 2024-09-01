@@ -146,6 +146,8 @@
                             <span style="text-align: left;" class="brand-text">{{ modelo.Label }} - Código: {{ modelo.Value }}</span>
                         </button>
                         <input type="hidden" name="marca_id" value="{{ marca_id }}">
+                        <input type="hidden" name="marca_label" value="{{ marca_label }}">  <!-- Campo escondido -->
+                        <input type="hidden" name="modelo_label" value="{{ modelo.Label }}">  <!-- Campo escondido -->
                         {% endfor %}
                     </div>
                 </form>

@@ -9,21 +9,14 @@ app_name = 'fipe_app'
 router = DefaultRouter()
 router.register(r'leads', views.LeadViewSet)
 
-
-
 urlpatterns = [
     path('', views.index_view, name='index'),
-    path('step-1/', views.step_1, name='step_1'),
-    path('step-1/<int:brand_id>/', views.step_1_1, name='step_1_1'),
-    path('step-2/<int:version_id>/', views.step_2, name='step_2'),
-    path('step-3/<int:model_id>/', views.step_3, name='step_3'),
-    path('step-4/<int:year_id>/', views.step_4, name='step_4'),
-    path('step-5/<int:year_id>/', views.step_5, name='step_5'),
+    path('step-4/', views.step_4, name='step_4'),
     path('step-6/', views.step_6, name='step_6'),
     path('show-price/<int:lead_id>/', views.show_price, name='show_price'),
     path('api/', include(router.urls)),
     path('listar-marcas/', views.listar_marcas, name='listar_marcas'),
-    path('listar_modelos/', views.listar_modelos, name='listar_modelos'),
+    path('listar-modelos/', views.listar_modelos, name='listar_modelos'),
     path('listar-ano-modelos/', views.listar_ano_modelos, name='listar_ano_modelos'),
 
 
