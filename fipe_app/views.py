@@ -33,7 +33,7 @@ def listar_marcas(request):
 def listar_modelos(request):
     if request.method == 'POST':
         marca_id = request.POST.get('marca_id')
-        marca_label = request.POST.get('marca_label')  # Adiciona essa linha
+        marca_label = request.POST.get('marca_label')
 
         dados_veiculo_modelo = {
             'codigoTabelaReferencia': referencias,
@@ -43,11 +43,10 @@ def listar_modelos(request):
 
         modelos = req(url_modelos, dados_veiculo_modelo)
 
-        # Aqui, vamos armazenar os dados da marca na sessão
         request.session['marca_id'] = marca_id
-        request.session['marca_label'] = marca_label  # Armazena o label na sessão
+        request.session['marca_label'] = marca_label
 
-        return render(request, 'leads/listar_modelos.html', {'modelos': modelos['Modelos'], 'marca_id': marca_id, 'marca_label': marca_label})  # Adiciona o label
+        return render(request, 'leads/listar_modelos.html', {'modelos': modelos['Modelos'], 'marca_id': marca_id, 'marca_label': marca_label}) 
 
 def listar_ano_modelos(request):
     if request.method == 'POST':
@@ -55,12 +54,12 @@ def listar_ano_modelos(request):
         modelo_id = request.POST.get('modelo_id')
         marca_id = request.POST.get('marca_id')
         marca_label = request.POST.get('marca_label')
-        modelo_label = request.POST.get('modelo_label')  # Adiciona essa linha
+        modelo_label = request.POST.get('modelo_label')
 
         request.session['marca_id'] = marca_id
-        request.session['marca_label'] = marca_label  # Armazena o label na sessão
+        request.session['marca_label'] = marca_label
         request.session['modelo_id'] = modelo_id
-        request.session['modelo_label'] = modelo_label  # Armazena o label na sessão
+        request.session['modelo_label'] = modelo_label
         request.session['ano_id'] = ano_id
 
         dados_veiculos_ano_modelo = {
@@ -78,19 +77,20 @@ def listar_ano_modelos(request):
             'anos_data': anos_data,
             'modelo_id': modelo_id,
             'marca_id': marca_id,
+            'marca_label': marca_label,
+            'modelo_label': modelo_label, 
         }
 
-        if ano_id: 
+        if ano_id:
             return redirect('fipe_app:step_4') 
         else:
-            context['error_message'] = "Ano não selecionado. Por favor, selecione um ano." 
+            context['error_message'] = "Ano não selecionado. Por favor, selecione um ano."
 
         return render(request, 'leads/listar_ano_modelos.html', context)
 
     return render(request, 'leads/listar_ano_modelos.html')
 
 
-# Etapa 4
 def step_4(request):
     context = {}
 
@@ -98,6 +98,8 @@ def step_4(request):
         mileage = request.POST.get('mileage')
         revisions_done = request.POST.get('revisions_done') == 'true'
         under_warranty = request.POST.get('under_warranty') == 'true'
+        marca_label = request.POST.get('marca_label')
+        modelo_label = request.POST.get('modelo_label') 
 
         if mileage:
             request.session['mileage'] = float(mileage)
@@ -108,60 +110,40 @@ def step_4(request):
             modelo_id = request.session.get('modelo_id')
             ano_id = request.session.get('ano_id')
 
-            print("Dados na sessão após o POST:")
-            print("Marca ID:", request.session.get('marca_id'))
-            print("Marca LABEL:", request.session.get('marca_label'))
-            print("Modelo ID:", request.session.get('modelo_id'))
-            print("Modelo LABEL:", request.session.get('modelo_label'))
-            print("Ano ID:", request.session.get('ano_id'))
-
             if marca_id and modelo_id and ano_id:
                 return redirect('fipe_app:step_6')
-            else:
-                print("Um ou mais IDs não estão definidos na sessão.")
 
     return render(request, 'leads/step-four-form.html', context)
 
-
-def currency_to_decimal(value):
-    if isinstance(value, (float, Decimal)):
-        return Decimal(value)
-    # Remove os símbolos de moeda e os separadores de milhar
-    number_string = re.sub(r'[^\d,]', '', value)
-    # Substitui a vírgula do decimal pelo ponto para conversão
-    number_string = number_string.replace(',', '.')
-    return Decimal(number_string)
-
 def step_6(request):
     if request.method == "POST":
-        # Recupera os dados da sessão
         marca_id = request.session.get('marca_id')
         modelo_id = request.session.get('modelo_id')
         ano_id = request.session.get('ano_id')
         marca_label = request.session.get('marca_label')
-        modelo_label = request.POST.get('modelo_label')
+        modelo_label = request.session.get('modelo_label')
 
         if not ano_id:
-            print("Ano ID não está definido na sessão.")
             return redirect('fipe_app:step_4')
 
         mileage = Decimal(request.session.get('mileage', '0'))
         revisions_done = request.session.get('revisions_done', False)
         under_warranty = request.session.get('under_warranty', False)
 
-        # Exibe dados para depuração
         print_session_data(marca_id, marca_label, modelo_id, modelo_label, ano_id, mileage, revisions_done, under_warranty)
 
-        # Obtenha o valor da tabela Fipe
-        valor_fipe, fuel_id = get_fipe_value(ano_id, marca_id, modelo_id)
+        try:
+            ano_modelo, fuel_id = ano_id.split(' ', 1)
+        except ValueError:
+            print("Formato de ano inválido.")
+            return redirect('fipe_app:step_4') 
 
-        # Calcule o preço final
+        valor_fipe, fuel_id = get_fipe_value(ano_modelo, marca_id, modelo_id)
+
         final_price, percentage, market_category = calculate_final_price(valor_fipe, mileage, revisions_done, under_warranty, modelo_id, fuel_id)
 
-        # Cria a Lead
         lead = create_lead(request, marca_label, modelo_label, ano_id, fuel_id, final_price, valor_fipe, percentage, revisions_done, under_warranty)
 
-        # Limpa os dados da sessão após criar a Lead
         request.session.flush()
 
         return redirect('fipe_app:show_price', lead_id=lead.id)
@@ -180,24 +162,30 @@ def print_session_data(marca_id, marca_label, modelo_id, modelo_label, ano_id, m
     print("Na garantia:", under_warranty)
 
 def get_fipe_value(ano_id, marca_id, modelo_id):
-    try:
-        ano_id, fuel_id = ano_id.split(' ', 1)
-    except ValueError:
-        print("Formato de ano inválido.")
-        return Decimal('0.00'), '1'
+    ano_id = ano_id.strip()
+    
+    if ' ' in ano_id:
+        ano_modelo, fuel_id = ano_id.split(' ', 1) 
+    else:
+        ano_modelo = ano_id
+        fuel_id = '1' 
 
     dados_veiculos_ano_modelo = {
-        'codigoTabelaReferencia': referencias,
-        'codigoTipoVeiculo': 1,
-        'codigoMarca': marca_id,
-        'codigoModelo': modelo_id,
-        'ano': ano_id,
+            'codigoTabelaReferencia': referencias,
+            'codigoTipoVeiculo': 1,
+            'codigoMarca': marca_id,
+            'codigoModelo': modelo_id,
+            'ano': ano_id,
+            'anoModelo': ano_modelo,
+            'codigoTipoCombustivel': fuel_id,
+            'tipoConsulta': 'tradicional'
     }
 
     response = req(url_todos_parametros, dados_veiculos_ano_modelo)
+
     valor_fipe = Decimal(response.get('Valor', '0.00').replace('R$', '').replace('.', '').replace(',', '.'))
-    print("Valor Fipe encontrado:", valor_fipe)
     return valor_fipe, fuel_id
+
 
 def calculate_final_price(valor_fipe, mileage, revisions_done, under_warranty, modelo_id, fuel_id):
     km_brackets = [
@@ -218,7 +206,6 @@ def calculate_final_price(valor_fipe, mileage, revisions_done, under_warranty, m
     if under_warranty:
         percentage += Decimal('0.02')
 
-    # Ajustes de acordo com o modelo e tipo de combustível
     market_category = adjust_percentage_by_model(modelo_id, fuel_id, percentage)
 
     final_price = valor_fipe * percentage
@@ -262,8 +249,8 @@ def create_lead(request, marca_label, modelo_label, ano_id, fuel_id, final_price
         year=ano_id,
         fuel=fuel_id,
         price=final_price,
-        market_category='Comum',  # Ajuste conforme a lógica de mercado
-        car_category='Salão',  # Ajuste conforme a lógica de categoria
+        market_category='Comum',
+        car_category='Salão',
         original_price=valor_fipe,
         pricing_percentage=percentage,
         revisions_done_in_css=revisions_done,
@@ -271,12 +258,11 @@ def create_lead(request, marca_label, modelo_label, ano_id, fuel_id, final_price
     )
     return lead
     
-# Função de utilitário para formatar números como moeda
 def format_currency(value):
     try:
         locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     except locale.Error:
-        locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')  # Tentativa alternativa
+        locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
     return locale.currency(value, grouping=True)
 
 def show_price(request, lead_id):
@@ -293,7 +279,6 @@ class LeadViewSet(viewsets.ModelViewSet):
     serializer_class = LeadSerializer
 
     def get_queryset(self):
-        # Se você quiser filtrar os dados, pode fazer isso aqui
         return self.queryset
 
 
