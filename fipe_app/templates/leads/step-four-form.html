@@ -17,52 +17,52 @@
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba0b089978cd40d5d56e_favicon.ico" rel="shortcut icon" type="image/x-icon"/>
         <link href="https://assets-global.website-files.com/65d4d62524572e9697ec5fb3/65e8ba42dd4c688c0276b10c_Logo%20reduzida%2002%20(1).png" rel="apple-touch-icon"/>
         <style>
-        .cf-forms-section-2 {
-            margin-top: 150px; /* Puxa o elemento para cima */
-            padding-bottom: 10px;
+            .cf-forms-section-2 {
+                margin-top: 150px;
+                padding-bottom: 10px;
 
-        }
+            }
 
-        .cf-newsletter-text-field::placeholder {
-        color: white; /* Ou use #ffffff para branco */
-        opacity: 1; /* Para navegadores que reduzem a opacidade por padrão */
-        }
+            .cf-newsletter-text-field::placeholder {
+            color: white;
+            opacity: 1; 
+            }
 
-        .cf-newsletter-wrapper {
-            margin-top: 0; /* Ajustar se houver margem aplicada */
-        }
-        .progress-bar-container {
-    width: 100%;
-    background-color: #f2f2f2;
-    border-radius: 4px;
-    overflow: hidden;
-}
+            .cf-newsletter-wrapper {
+                margin-top: 0;
+            }
+            .progress-bar-container {
+                width: 100%;
+                background-color: #f2f2f2;
+                border-radius: 4px;
+                overflow: hidden;
+            }
 
-.checkbox-wrapper {
+            .checkbox-wrapper {
                 display: flex;
                 align-items: center;
-                margin: 10px 0; /* Ajustado para se aplicar a todos os lados */
+                margin: 5px 0;
                 padding: 10px;
                 background-color: #000c2c;
                 border-radius: 10px;
             }
-        
+            
             .checkbox-wrapper label {
-                margin-left: 5px; /* Espaço entre a checkbox e o label */
-                font-size: 14px; /* Tamanho da fonte do texto do label */
-                color: white; /* Cor do texto */
+                margin-left: 5px; 
+                font-size: 14px;
+                color: white; 
             }
         
             .checkbox-wrapper input[type="checkbox"] {
-                accent-color: #4CAF50; /* Cor do tick da checkbox */
+                accent-color: #4CAF50; 
             }
 
-.progress-bar {
-    height: 20px;
-    width: 0; /* Será alterado dinamicamente para refletir o progresso */
-    background-color: green;
-    transition: width 0.5s ease-in-out; /* Adiciona uma transição suave */
-}
+            .progress-bar {
+                height: 20px;
+                width: 0;
+                background-color: green;
+                transition: width 0.5s ease-in-out;
+            }
 
         </style>
     </head>
@@ -89,16 +89,17 @@
                     <form method="post" class="cf-form">
                         {% csrf_token %}
                         <input class="cf-newsletter-text-field w-input" style="background-color: #000c2c; border-radius: 10px; color: #fff;" placeholder="Digite a quilometragem" type="number" id="mileage" name="mileage" required />
-                        <br>
+                        
                         <div class="checkbox-wrapper">
                             <input type="checkbox" id="revisions_done" name="revisions_done" value="true">
                             <label for="revisions_done">Revisões feitas na concessionária</label>
                         </div>
-        
+                
                         <div class="checkbox-wrapper">
                             <input type="checkbox" id="under_warranty" name="under_warranty" value="true">
                             <label for="under_warranty">Na garantia</label>
                         </div>
+                
                         <button type="submit" style="border-radius: 10px;" class="cf-submit-button w-button">Avançar</button>
                         
                         <input type="hidden" name="modelo_id" value="{{ modelo_id }}">
@@ -106,7 +107,6 @@
                         <input type="hidden" name="marca_label" value="{{ marca_label }}"> 
                         <input type="hidden" name="modelo_label" value="{{ modelo.Label }}">    
                     </form>
-                    
                 </div>
             </div>
         </div>
@@ -164,12 +164,10 @@
             </div>
         </footer>
         <script>
-            const progress = 60; // Porcentagem de progresso
+            const progress = 60;
             
-            // Seletor da barra de progresso
             const progressBar = document.querySelector('.progress-bar');
             
-            // Ajuste a largura da barra de progresso
             progressBar.style.width = progress + '%';
         </script>
     </body>

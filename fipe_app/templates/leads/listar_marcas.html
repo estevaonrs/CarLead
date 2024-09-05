@@ -126,7 +126,7 @@
                 <div class="container">
                     <div class="search-container" style="display: flex; align-items: center;">
                         <form method="get" action="" style="display: flex;">
-                            <input type="text" id="search-input" name="search" placeholder="Pesquisar marca" style="height: 40px; border-radius: 5px 0 0 5px; padding: 5px 10px;"/>
+                            <input type="text" id="search-input" name="search" placeholder="Pesquisar marca" value="{{ request.GET.search }}" style="height: 40px; border-radius: 5px 0 0 5px; padding: 5px 10px;"/>
                             <button type="submit" style="padding: 5px; background: #000c2c; border: none; border-radius: 0 5px 5px 0; display: flex; align-items: center;">
                                 <i style="color: white;" class="fa fa-search"></i>
                             </button>
@@ -140,30 +140,13 @@
                     <div class="cf-logos-2--wrapper">
                         {% for marca in marcas %}
                         <button type="submit" name="marca_id" value="{{ marca.Value }}" class="cf-logo-button">
-                            <span style="text-align: left;" class="brand-text">{{ marca.Label }} - Código: {{ marca.Value }}</span>
+                            <img src="{% static marca.Image %}" alt="{{ marca.Label }}" class="cf-logo-image"/>
+                            <span style="text-align: left;" class="brand-text">{{ marca.Label }}</span>
                         </button>
-                        <input type="hidden" name="marca_label" value="{{ marca.Label }}">  <!-- Campo escondido -->
+                        <input type="hidden" name="marca_label" value="{{ marca.Label }}">
                         {% endfor %}
                     </div>
                 </form>
-
-                <!-- <form method="post">
-                    {% csrf_token %}
-                    <div class="cf-logos-2--wrapper">
-                        {% for brand in brands %}
-                        {% if brand.show_in_template %}
-                            <button type="submit" name="brand_id" value="{{ brand.id }}" class="cf-logo-button">
-                                {% if brand.image %}
-                                    <img src="{{ brand.image.url }}" alt="{{ brand.brand }}" class="cf-logo-image"/>
-                                {% else %}
-                                    <img src="{% static 'images/placeholder.webp' %}" alt="Imagem padrão" class="cf-logo-image"/>
-                                {% endif %}
-                                <span style="text-align: left;" class="brand-text">{{ brand.brand }}</span>
-                            </button>
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                </form> -->
             </div>
         </div>
         <footer class="cf-footer-section">

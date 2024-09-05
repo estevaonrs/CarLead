@@ -140,14 +140,14 @@
 
                 <form method="post" action="{% url 'fipe_app:listar_ano_modelos' %}">
                     {% csrf_token %}
-                    <div class="cf-logos-2--modelos">
+                    <div class="cf-logos-2--wrapper" id="cf-models-2--wrapper">
                         {% for modelo in modelos %}
                         <button type="submit" name="modelo_id" value="{{ modelo.Value }}" class="cf-logo-button">
-                            <span style="text-align: left;" class="brand-text">{{ modelo.Label }} - Código: {{ modelo.Value }}</span>
+                            <span style="text-align: left;" class="brand-text">{{ modelo.Label }}</span>
                         </button>
                         <input type="hidden" name="marca_id" value="{{ marca_id }}">
-                        <input type="hidden" name="marca_label" value="{{ marca_label }}">  <!-- Campo escondido -->
-                        <input type="hidden" name="modelo_label" value="{{ modelo.Label }}">  <!-- Campo escondido -->
+                        <input type="hidden" name="marca_label" value="{{ marca_label }}">
+                        <input type="hidden" name="modelo_label" value="{{ modelo.Label }}">
                         {% endfor %}
                     </div>
                 </form>

@@ -15,21 +15,31 @@ from rest_framework import viewsets
 
 import re
 from .helpers import (req, url_api, url_tabelaref, url_marcas, 
-url_modelos, url_ano_modelos, url_todos_parametros, referencias_anos, referencias, tipo_veiculo)
+url_modelos, url_ano_modelos, url_todos_parametros, referencias_anos, referencias, tipo_veiculo, marcas_desejadas, imagens_marcas)
 
 from .business import print_session_data, adjust_percentage_by_model, get_fipe_value, calculate_final_price, create_lead, format_currency
 
 
 def listar_marcas(request):
+    termo_pesquisa = request.GET.get('search', '')
 
     dados_veiculo_marca = {
         'codigoTabelaReferencia': referencias,
         'codigoTipoVeiculo': tipo_veiculo
     }
 
-    marcas = req(url_marcas, dados_veiculo_marca)
+    todas_marcas = req(url_marcas, dados_veiculo_marca)
 
-    return render(request, 'leads/listar_marcas.html', {'marcas': marcas})
+    marcas_filtradas = [
+        {
+            'Label': marca['Label'],
+            'Value': marca['Value'],
+            'Image': imagens_marcas.get(marca['Label'], 'media/brands_images/default.png')
+        }
+        for marca in todas_marcas if marca['Label'] in marcas_desejadas and (termo_pesquisa.lower() in marca['Label'].lower())
+    ]
+
+    return render(request, 'leads/listar_marcas.html', {'marcas': marcas_filtradas})
 
 
 def listar_modelos(request):

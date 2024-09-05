@@ -101,17 +101,18 @@
                     {% csrf_token %}
                     <div class="cf-logos-2--wrapper">
                         {% for ano in anos_data %}
+                        {% with ano.value|slice:":4" as ano_exato %}
                         <button type="submit" name="ano_id" value="{{ ano.value }}" class="cf-logo-button">
-                            <span style="text-align: left;" class="brand-text">{{ ano.value }}</span>
+                            <span style="text-align: left;" class="brand-text">{{ ano_exato }}</span>
                         </button>
+                        {% endwith %}
                         {% endfor %}
                     </div>
                     <input type="hidden" name="modelo_id" value="{{ modelo_id }}">
                     <input type="hidden" name="marca_id" value="{{ marca_id }}">
-                    <input type="hidden" name="marca_label" value="{{ marca_label }}"> 
-                    <input type="hidden" name="modelo_label" value="{{ modelo_label }}"> <!-- Correção feita aqui -->
+                    <input type="hidden" name="marca_label" value="{{ marca_label }}">
+                    <input type="hidden" name="modelo_label" value="{{ modelo_label }}">
                 </form>
-                
             </div>
         </div>
         <footer class="cf-footer-section">
