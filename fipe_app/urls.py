@@ -11,9 +11,9 @@ router.register(r'leads', views.LeadViewSet)
 
 urlpatterns = [
     path('', views.index_view, name='index'),
-    path('step-4/', views.step_4, name='step_4'),
-    path('step-6/', views.step_6, name='step_6'),
-    path('show-price/<int:lead_id>/', views.show_price, name='show_price'),
+    path('quilometragem/', views.quilometragem, name='step_4'),
+    path('criar-lead/', views.criar_lead, name='step_6'),
+    path('mostrar-precificacao/<int:lead_id>/', views.mostrar_precificacao, name='show_price'),
     path('api/', include(router.urls)),
     path('listar-marcas/', views.listar_marcas, name='listar_marcas'),
     path('listar-modelos/', views.listar_modelos, name='listar_modelos'),

@@ -20,21 +20,21 @@ marcas_desejadas = [
 ]
 
 imagens_marcas = {
-    "Citroën": "images/brands_images/ford.webp",
-    "Fiat": "images/brands_images/ford.webp",
-    "Ford": "images/brands_images/ford.webp",
-    "GM - Chevrolet": "images/brands_images/chevrolet.webp",
-    "Honda": "images/brands_images/ford.webp",
-    "Hyundai": "images/brands_images/hyundai.webp",
-    "Jeep": "images/brands_images/ford.webp",
-    "Mitsubishi": "images/brands_images/ford.webp",
-    "Nissan": "images/brands_images/ford.webp",
-    "Peugeot": "images/brands_images/ford.webp",
-    "Suzuki": "images/brands_images/ford.webp",
-    "Toyota": "images/brands_images/ford.webp",
-    "Troller": "images/brands_images/ford.webp",
-    "VW - VolksWagen": "images/brands_images/ford.webp",
-    "Renault": "images/brands_images/renault.webp",
+    "Citroën": "images/brands_images/citroen.webp",
+    "Fiat": "images/brands_images/fiat.png",
+    "Ford": "images/brands_images/ford.png",
+    "GM - Chevrolet": "images/brands_images/chevrolet.png",
+    "Honda": "images/brands_images/honda.png",
+    "Hyundai": "images/brands_images/hyundai.png",
+    "Jeep": "images/brands_images/jeep.png",
+    "Mitsubishi": "images/brands_images/mitsubishi.webp",
+    "Nissan": "images/brands_images/nissan.png",
+    "Peugeot": "images/brands_images/peugeot.png",
+    "Suzuki": "images/brands_images/suzuki.png",
+    "Toyota": "images/brands_images/toyota.png",
+    "Troller": "images/brands_images/troller.png",
+    "VW - VolksWagen": "images/brands_images/volks.png",
+    "Renault": "images/brands_images/renault.png",
 }
 
 marcas_desejadas = imagens_marcas.keys()

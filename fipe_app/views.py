@@ -41,7 +41,6 @@ def listar_marcas(request):
 
     return render(request, 'leads/listar_marcas.html', {'marcas': marcas_filtradas})
 
-
 def listar_modelos(request):
     if request.method == 'POST':
         marca_id = request.POST.get('marca_id')
@@ -103,7 +102,7 @@ def listar_ano_modelos(request):
     return render(request, 'leads/listar_ano_modelos.html')
 
 
-def step_4(request):
+def quilometragem(request):
     context = {}
 
     if request.method == "POST":
@@ -125,9 +124,9 @@ def step_4(request):
             if marca_id and modelo_id and ano_id:
                 return redirect('fipe_app:step_6')
 
-    return render(request, 'leads/step-four-form.html', context)
+    return render(request, 'leads/quilometragem.html', context)
 
-def step_6(request):
+def criar_lead(request):
     if request.method == "POST":
         marca_id = request.session.get('marca_id')
         modelo_id = request.session.get('modelo_id')
@@ -136,7 +135,7 @@ def step_6(request):
         modelo_label = request.session.get('modelo_label')
 
         if not ano_id:
-            return redirect('fipe_app:step_4')
+            return redirect('fipe_app:quilometragem')
 
         mileage = Decimal(request.session.get('mileage', '0'))
         revisions_done = request.session.get('revisions_done', False)
@@ -148,7 +147,7 @@ def step_6(request):
             ano_modelo, fuel_id = ano_id.split(' ', 1)
         except ValueError:
             print("Formato de ano inválido.")
-            return redirect('fipe_app:step_4') 
+            return redirect('fipe_app:quilometragem') 
 
         valor_fipe, fuel_id = get_fipe_value(ano_modelo, marca_id, modelo_id)
 
@@ -160,16 +159,16 @@ def step_6(request):
 
         return redirect('fipe_app:show_price', lead_id=lead.id)
 
-    return render(request, 'leads/step-six-form.html')
+    return render(request, 'leads/criar_lead.html')
 
 
-def show_price(request, lead_id):
+def mostrar_precificacao(request, lead_id):
     lead = Lead.objects.get(id=lead_id)
     
     lead.original_price = format_currency(lead.original_price)
     lead.price = format_currency(lead.price)
     
-    return render(request, 'leads/show_price.html', {'lead': lead})
+    return render(request, 'leads/mostrar_precificacao.html', {'lead': lead})
 
 
 class LeadViewSet(viewsets.ModelViewSet):

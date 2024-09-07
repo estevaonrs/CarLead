@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <div class="cf-forms-section-2">
+            <div class="cf-newsletter-wrapper">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 100%; background-color: green;"></div>
+                </div><br>
+                <h2 class="cf-h2-white-heading-center">PREENCHA A QUILOMETRAGEM DO SEU CARRO</h2>
+                <div class="cf-newsletter-form-block w-form">
+                    <form method="post" class="cf-form">
+                        {% csrf_token %}
+                        <input class="cf-newsletter-text-field w-input" style="background-color: #000c2c; border-radius: 10px; color: #fff;" placeholder="Digite a quilometragem" type="number" id="mileage" name="mileage" required />
+                        
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="revisions_done" name="revisions_done" value="true">
+                            <label for="revisions_done">Revisões feitas na concessionária</label>
+                        </div>
+                
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="under_warranty" name="under_warranty" value="true">
+                            <label for="under_warranty">Na garantia</label>
+                        </div>
+                
+                        <button type="submit" style="border-radius: 10px;" class="cf-submit-button w-button">Avançar</button>
+                        
+                        <input type="hidden" name="modelo_id" value="{{ modelo_id }}">
+                        <input type="hidden" name="marca_id" value="{{ marca_id }}">
+                        <input type="hidden" name="marca_label" value="{{ marca_label }}"> 
+                        <input type="hidden" name="modelo_label" value="{{ modelo.Label }}">    
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            const progress = 60;
+            
+            const progressBar = document.querySelector('.progress-bar');
+            
+            progressBar.style.width = progress + '%';
+        </script>
+{% endblock %}
