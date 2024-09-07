@@ -4,17 +4,15 @@
 
 <head>
     {% include 'partials/head.html' %}
-    <title>{% block title %}{% endblock title %} teste</title>
+    <title>{% block title %}{% endblock title %} CompramosSeuCarro</title>
 </head>
 
 <body>
     {% include 'partials/header.html' %}
-    {% include 'partials/search.html' %}
 
-    <main class="main-content-container">
+    <div class="cf-logo-section-2">
         {% block content %}{% endblock content %}
-        {% include 'partials/pagination.html' %}
-    </main>
+    </div>
 
     {% include 'partials/footer.html' %}
 
